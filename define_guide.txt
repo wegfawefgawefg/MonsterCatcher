@@ -1,0 +1,74 @@
+levels:
+game
+    map
+        instance
+
+'''
+    Guidelines for attributes for each of the 3 levels of definitions.
+    Some attributes are mandatory at specific levels.
+    Some attributes are cascading, in that if they are not defined at the current level, 
+        they must be defined at some level above atleast.
+    Some attributes are totally optional.
+'''
+game:
+    mandatory:
+        title
+        maps
+    atleast_once_at_some_level:
+        sprites
+        tile_sprites
+        encounter_set
+        tile_defs
+    optional:
+        nickname
+        comment
+map:
+    mandatory:
+        name
+        tile_grid
+    atleast_once_at_some_level:
+        sprites
+        tile_sprites
+        encounter_set
+        tile_defs
+    optional:
+        nickname
+        comment
+instance:
+    mandatory:
+        (depends on what it is)
+    atleast_once_at_some_level:
+        (depends on what it is)
+    optional:
+        (depends on what it is)
+
+'''
+    This is a list of specific leaf tier instances 
+        and their mandatory, atleast_once_at_some_level, and optional attributes.
+'''
+tile_def:
+    encounter_set
+
+
+
+'''
+    Globally Optional
+    These are never used for game logic ever. 
+    They are just for locating things within the json, or for human reference.
+'''
+nickname
+comment
+
+'''
+    Names are only used at the game level or map level. 
+    If you name an inline definition for a tile or npc at the leaf level, it can never be referenced, so 
+    it will never be used.
+'''
+
+no names and types of the same string at the same level
+ex: NOT ALLOWED
+    "tile_defs":[
+        {"type": "grass", "encounters": false},
+        {"name": "rock", "allows": null},
+        {"type": "rock", "allows": null}
+    ],

@@ -1,0 +1,168 @@
+{
+	"title": "brown_version",
+	"maps":[
+		{
+			"name": "town_1",
+			"width": 8,
+			"height": 8,
+			"tile_grid": [
+				{   "row_num": 0,
+					"tiles": [
+						{"type": "rock", "nickname": "brocks_rock", "tile_sprite": "rock_with_squinty_eyes"},
+						{"allows": "walking", "tile_sprite": "pebble"},
+						{"type": "rock"},
+						{"type": "rock"},
+						{"type": "rock"},
+						{"type": "rock"},
+						{"type": "rock"},
+						{"type": "rock"}
+					]
+				},
+				{   "row_num": 1,
+					"tiles": [
+						{"type": "rock"},
+						{"type": "dirt", "encounter_set": {"type": "ghosts"}},
+						{"type": "dirt", "encounter_set": {"type": "ghosts"}},
+						{"type": "dirt"},
+						{"type": "dirt"},
+						{"type": "dirt"},
+						{"type": "dirt"},
+						{"type": "rock"}
+					]
+				},
+				{   "row_num": 2,
+					"tiles": [
+						{"type": "rock"},
+						{"type": "dirt", "encounter_set": {"type": "ghosts"}},
+						{"type": "dirt", "encounter_set": {"type": "ghosts"}},
+						{"type": "dirt"},
+						{"type": "dirt"},
+						{"type": "dirt", "encounter_set": {"monsters": [{"type": "rat"}]}},
+						{"type": "dirt"},
+						{"type": "rock"}
+					]
+				},
+				{   "row_num": 3,
+					"tiles": [
+						{"type": "rock"},
+						{"type": "dirt"},
+						{"type": "dirt"},
+						{"type": "dirt"},
+						{"type": "dirt"},
+						{"type": "dirt"},
+						{"type": "dirt"},
+						{"type": "rock"}
+					]
+				},
+				{   "row_num": 4,
+					"tiles": [
+						{"type": "rock"},
+						{"type": "dirt"},
+						{"type": "dirt"},
+						{"type": "dirt"},
+						{"type": "dirt"},
+						{"type": "dirt"},
+						{"type": "dirt"},
+						{"type": "rock"}
+					]
+				},
+				{   "row_num": 5,
+					"tiles": [
+						{"type": "rock"},
+						{"type": "dirt"},
+						{"type": "dirt"},
+						{"type": "dirt"},
+						{"type": "dirt"},
+						{"type": "grass"},
+						{"type": "grass"},
+						{"type": "rock"}
+					]
+				},
+				{   "row_num": 6,
+					"tiles": [
+						{"type": "rock"},
+						{"type": "dirt"},
+						{"type": "dirt"},
+						{"type": "dirt"},
+						{"type": "dirt"},
+						{"type": "grass"},
+						{"type": "grass"},
+						{"type": "rock"}
+					]
+				},
+				{   "row_num": 7,
+					"tiles": [
+						{"type": "rock"},
+						{"type": "rock"},
+						{"type": "rock"},
+						{"type": "rock"},
+						{"type": "rock"},
+						{"type": "rock"},
+						{"type": "rock"},
+						{"type": "rock"}
+					]
+				}
+			],
+			"warps": [
+				{"name": "test_warp_1", "x": 1, "y": 1, "dest_map": "town_1", "dest_x": 2, "dest_y": 2},
+				{"name": "other_town_test_warp", "x": 2, "y": 1, "dest_map": "town_2", "dest_x": 2, "dest_y": 2}
+			],
+			"events":[
+				{}
+			],
+			"npcs":[
+				{"name": "steve", "x": 3, "y": 3, "path_type": "brownian", "sprite_set":"steve"}
+			],
+			"tile_defs":[
+				{"type": "grass", "encounters": false},
+                {"name": "rock", "allows": null}
+			],
+			"encounters_sets":[
+				{
+					"name": "ghosts", 
+					"monsters": [
+						{"name": "gast"}
+					]
+				}
+			]
+
+		}
+	],
+	"tile_defs":[
+		{"name": "dirt", "allows": "walking", "encounters": false},
+		{"name": "grass", "allows": "walking", "encounters": false},
+		{"name": "rock", "allows": null},
+		{"name": "water", "allows": "swimming"},
+		{"name": "flowers", "allows": "walking", "animated": true}
+	],
+	"encounter_sets":[
+        {
+            "name": "fish", 
+            "monsters": [
+                {"type": "minno"}
+            ]
+        }
+	],
+    "monsters":[
+        {
+            "name": "minno",
+            "hp": 10,
+            "attack": 1,
+            "sp_attack": 1,
+            "defense": 1,
+            "sp_defense": 1,
+            "speed": 5,
+
+            "attack_growth": 0,
+            "sp_attack_growth": 0,
+            "defense_growth": 1,
+            "sp_defense_growth": 1,
+            "speed_growth": 10,
+
+            "learnset":[
+                {"type": "nibble", "level": 1},
+                {"type": "get_hype", "level": 5}
+            ]
+        }
+    ]
+}
