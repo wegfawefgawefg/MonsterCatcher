@@ -2,151 +2,126 @@
 	"title": "brown_version",
 	"maps":[
 		{
-			"name": "town_1",
+			"id": "town_1",
 			"width": 8,
 			"height": 8,
 			"tile_grid": [
-				{   "row_num": 0,
-					"tiles": [
-						{"type": "rock", "nickname": "brocks_rock", "tile_sprite": "rock_with_squinty_eyes"},
-						{"allows": "walking", "tile_sprite": "pebble"},
-						{"type": "rock"},
-						{"type": "rock"},
-						{"type": "rock"},
-						{"type": "rock"},
-						{"type": "rock"},
-						{"type": "rock"}
-					]
-				},
-				{   "row_num": 1,
-					"tiles": [
-						{"type": "rock"},
-						{"type": "dirt", "encounter_set": {"type": "ghosts"}},
-						{"type": "dirt", "encounter_set": {"type": "ghosts"}},
-						{"type": "dirt"},
-						{"type": "dirt"},
-						{"type": "dirt"},
-						{"type": "dirt"},
-						{"type": "rock"}
-					]
-				},
-				{   "row_num": 2,
-					"tiles": [
-						{"type": "rock"},
-						{"type": "dirt", "encounter_set": {"type": "ghosts"}},
-						{"type": "dirt", "encounter_set": {"type": "ghosts"}},
-						{"type": "dirt"},
-						{"type": "dirt"},
-						{"type": "dirt", "encounter_set": {"monsters": [{"type": "rat"}]}},
-						{"type": "dirt"},
-						{"type": "rock"}
-					]
-				},
-				{   "row_num": 3,
-					"tiles": [
-						{"type": "rock"},
-						{"type": "dirt"},
-						{"type": "dirt"},
-						{"type": "dirt"},
-						{"type": "dirt"},
-						{"type": "dirt"},
-						{"type": "dirt"},
-						{"type": "rock"}
-					]
-				},
-				{   "row_num": 4,
-					"tiles": [
-						{"type": "rock"},
-						{"type": "dirt"},
-						{"type": "dirt"},
-						{"type": "dirt"},
-						{"type": "dirt"},
-						{"type": "dirt"},
-						{"type": "dirt"},
-						{"type": "rock"}
-					]
-				},
-				{   "row_num": 5,
-					"tiles": [
-						{"type": "rock"},
-						{"type": "dirt"},
-						{"type": "dirt"},
-						{"type": "dirt"},
-						{"type": "dirt"},
-						{"type": "grass"},
-						{"type": "grass"},
-						{"type": "rock"}
-					]
-				},
-				{   "row_num": 6,
-					"tiles": [
-						{"type": "rock"},
-						{"type": "dirt"},
-						{"type": "dirt"},
-						{"type": "dirt"},
-						{"type": "dirt"},
-						{"type": "grass"},
-						{"type": "grass"},
-						{"type": "rock"}
-					]
-				},
-				{   "row_num": 7,
-					"tiles": [
-						{"type": "rock"},
-						{"type": "rock"},
-						{"type": "rock"},
-						{"type": "rock"},
-						{"type": "rock"},
-						{"type": "rock"},
-						{"type": "rock"},
-						{"type": "rock"}
-					]
-				}
+                [
+                    {"from": "rock", "nickname": "brocks_rock", "tile_sprite": "rock_with_squinty_eyes"},
+                    {"allows": "walking", "tile_sprite": "rock"},
+                    {"from": "rock"},
+                    {"from": "rock"},
+                    {"from": "rock"},
+                    {"from": "tall_rock"},
+                    {"from": "rock"},
+                    {"from": "rock"}
+                ],
+				[
+                    {"from": "rock"},
+                    {"from": "dirt", "encounters": {"from": "ghosts"}},
+                    {"from": "dirt", "encounters": {"from": "ghosts"}},
+                    {"from": "flowers"},
+                    {"from": "dirt"},
+                    {"from": "dirt"},
+                    {"from": "dirt"},
+                    {"from": "rock"}
+				],
+                [
+                    {"from": "rock"},
+                    {"from": "dirt", "encounters": {"from": "ghosts"}},
+                    {"from": "dirt", "encounters": {"from": "ghosts"}},
+                    {"from": "dirt"},
+                    {"from": "dirt"},
+                    {"from": "dirt", "encounters": {"monsters": [{"from": "rat"}]}},
+                    {"from": "dirt"},
+                    {"from": "rock"}
+                ],
+                [
+                    {"from": "rock"},
+                    {"from": "dirt"},
+                    {"from": "dirt"},
+                    {"from": "dirt"},
+                    {"from": "dirt"},
+                    {"from": "dirt"},
+                    {"from": "dirt"},
+                    {"from": "rock"}
+                ],
+                [
+                    {"from": "rock"},
+                    {"from": "dirt"},
+                    {"from": "dirt"},
+                    {"from": "dirt"},
+                    {"from": "dirt"},
+                    {"from": "dirt"},
+                    {"from": "dirt"},
+                    {"from": "rock"}
+                ],
+                [
+                    {"from": "rock"},
+                    {"from": "dirt"},
+                    {"from": "dirt"},
+                    {"from": "dirt"},
+                    {"from": "dirt"},
+                    {"from": "grass"},
+                    {"from": "grass"},
+                    {"from": "rock"}
+                ],
+                [
+                    {"from": "rock"},
+                    {"from": "dirt"},
+                    {"from": "dirt"},
+                    {"from": "dirt"},
+                    {"from": "dirt"},
+                    {"from": "grass"},
+                    {"from": "grass", "encounters": {"monsters": [{"from": "rat"}]}},
+                    {"from": "rock"}
+                ],
+                [
+						{"from": "rock"},
+						{"from": "rock"},
+						{"from": "rock"},
+						{"from": "rock"},
+						{"from": "rock"},
+						{"from": "rock"},
+						{"from": "rock"},
+						{"from": "rock"}
+                ]
 			],
 			"warps": [
-				{"name": "test_warp_1", "x": 1, "y": 1, "dest_map": "town_1", "dest_x": 2, "dest_y": 2},
-				{"name": "other_town_test_warp", "x": 2, "y": 1, "dest_map": "town_2", "dest_x": 2, "dest_y": 2}
+				{"def": "test_warp_1", "x": 1, "y": 1, "dest_map": "town_1", "dest_x": 2, "dest_y": 2},
+				{"def": "other_town_test_warp", "x": 2, "y": 1, "dest_map": "town_2", "dest_x": 2, "dest_y": 2}
 			],
 			"events":[
 				{}
 			],
 			"npcs":[
-				{"name": "steve", "x": 3, "y": 3, "path_type": "brownian", "sprite_set":"steve"}
+				{"nickname": "steve", "x": 3, "y": 3, "motion_pattern": "brownian", "sprite_set": "steve"},
+                {"from": "nurse", "nickname": "joy", "x": 6, "y": 6}
 			],
 			"tile_defs":[
-				{"type": "grass", "encounters": false},
-                {"name": "rock", "allows": null}
+				{"from": "grass", "def": "grass", "encounters": null, "comment": "override grass to be encounterless on this map"},
+                {"from": "rock", "def": "rock", "allows": "walking", "comment": "override rock collisions on this map"},
+                {"from": "rock", "def": "tall_rock", "tile_sprite": "rock"}
 			],
-			"encounters_sets":[
-				{
-					"name": "ghosts", 
-					"monsters": [
-						{"name": "gast"}
-					]
-				}
+			"encounters_defs":[
+				{"def": "ghosts", "monsters": [{"from": "gast"}]}
 			]
-
 		}
 	],
 	"tile_defs":[
-		{"name": "dirt", "allows": "walking", "encounters": false},
-		{"name": "grass", "allows": "walking", "encounters": false},
-		{"name": "rock", "allows": null},
-		{"name": "water", "allows": "swimming"},
-		{"name": "flowers", "allows": "walking", "animated": true}
+		{"def": "dirt", "allows": "walking", "encounters": false, "tile_sprite": "dirt"},
+		{"def": "grass", "allows": "walking", "encounters": false, "tile_sprite": "grass"},
+		{"def": "rock", "allows": null, "tile_sprite": "rock"},
+		{"def": "water", "allows": "swimming", "tile_sprite": "water"},
+		{"def": "flowers", "allows": "walking", "anim_tile_sprite": "flowers"}
 	],
-	"encounter_sets":[
+    "npc_defs":[
+        {"def": "nurse", "anim_sprite_set": "nurse"}
+    ],
+    "monster_defs":[
         {
-            "name": "fish", 
-            "monsters": [
-                {"type": "minno"}
-            ]
-        }
-	],
-    "monsters":[
-        {
-            "name": "minno",
-            "hp": 10,
+            "def": "minno",
+            "hp": 2,
             "attack": 1,
             "sp_attack": 1,
             "defense": 1,
@@ -160,9 +135,75 @@
             "speed_growth": 10,
 
             "learnset":[
-                {"type": "nibble", "level": 1},
-                {"type": "get_hype", "level": 5}
+                {"from": "nibble", "level": 1},
+                {"from": "get_hype", "level": 5}
+            ]
+        },
+        {
+            "def": "gast",
+            "hp": 5,
+            "attack": 1,
+            "sp_attack": 2,
+            "defense": 5,
+            "sp_defense": 5,
+            "speed": 1,
+
+            "attack_growth": 1,
+            "sp_attack_growth": 2,
+            "defense_growth": 2,
+            "sp_defense_growth": 2,
+            "speed_growth": 1,
+
+            "learnset":[
+                {"from": "nibble", "level": 1},
+                {"from": "get_hype", "level": 5}
             ]
         }
-    ]
+    ],
+    "tile_sprite_defs":[
+        {"def": "rock", "img":{ "char": "r", "height": 8, "width": 8, "hex": "0x3a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b1"}},
+        {"def": "dirt", "img":{ "char": "d", "height": 8, "width": 8, "hex": "0x3a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b1"}}
+    ],
+    "anim_tile_sprite_defs":[
+        {"def": "flowers", "duration": 1, 
+            "imgs":[
+                { "char": "f", "height": 8, "width": 8, "hex": "0x3a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b1"},
+                { "char": "F", "height": 8, "width": 8, "hex": "0x3a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b1"}
+            ]
+        }
+    ],
+    "sprite_defs":[
+        {"def": "basic_man", "img":{ "char": "M", "height": 8, "width": 8, "offset": {"x": 4, "y": 6}, "hex": "0x3a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b1"}},
+    ],
+    "sprite_set_defs":[
+        {"def": "player",
+            "states":{
+                "moving_down": { "char": "v", "height": 8, "width": 8, "offset": {"x": 4, "y": 6}, "hex": "0x3a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b1"},
+                "moving_up": { "char": "^", "height": 8, "width": 8, "offset": {"x": 4, "y": 6}, "hex": "0x3a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b1"},
+                "moving_left": { "char": "<", "height": 8, "width": 8, "offset": {"x": 4, "y": 6}, "hex": "0x3a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b1"},
+                "moving_right": { "char": ">", "height": 8, "width": 8, "offset": {"x": 4, "y": 6}, "hex": "0x3a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b1"}
+            }
+        }    
+    ],
+    "anim_sprite_set_defs":[
+        {"def": "player", "duration": 1, 
+            "states":{
+                "moving_down": [
+                    { "char": "v", "height": 8, "width": 8, "offset": {"x": 4, "y": 6}, "hex": "0x3a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b1"},
+                    { "char": "Q", "height": 8, "width": 8, "offset": {"x": 4, "y": 6}, "hex": "0x3a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b1"},
+                ],
+                "moving_up": [
+                    { "char": "^", "height": 8, "width": 8, "offset": {"x": 4, "y": 6}, "hex": "0x3a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b1"},
+                    { "char": "Q", "height": 8, "width": 8, "offset": {"x": 4, "y": 6}, "hex": "0x3a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b1"},
+                ],
+                "moving_left": [
+                    { "char": "<", "height": 8, "width": 8, "offset": {"x": 4, "y": 6}, "hex": "0x3a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b1"},
+                    { "char": "Q", "height": 8, "width": 8, "offset": {"x": 4, "y": 6}, "hex": "0x3a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b1"},
+                ],
+                "moving_right": [
+                    { "char": ">", "height": 8, "width": 8, "offset": {"x": 4, "y": 6}, "hex": "0x3a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b1"},
+                    { "char": "Q", "height": 8, "width": 8, "offset": {"x": 4, "y": 6}, "hex": "0x3a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b1"},
+                ]
+            }
+        }       ]
 }
