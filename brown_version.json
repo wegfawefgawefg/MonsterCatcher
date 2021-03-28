@@ -4,6 +4,7 @@
 	"maps":{
         "town_1":{
 			"height": 8,
+            "width": 8,
 			"tile_grid": [
                 ["rock","rock","rock","rock","rock","tall_rock","rock","rock"],
                 ["rock","dirt","dirt","dirt","flowers","dirt","dirt","rock"],
@@ -16,24 +17,63 @@
                 ["rock","rock","rock","rock","rock","tall_rock","rock","rock"]
 			],
             "encounters": {
-                "1, 1": "ghosts"
+                "1, 1": {"encounter":"ghosts", 
+                    "when":{"hours":[20, 21, 22, 23, 24, 1, 2, 3, 4, 5]}},
+                "2, 2": {"encounter":"minno"}
             },
-            "encounter_ranges": {
-                "ghost_corner": {"x1": 1, "y1": 1, "x2": 2, "y2": 2, "encounter": "ghosts"}
+            "items": {
+				"free_salve":{"item": "salve", "x": 4, "y": 5, "invis": false,
+                    "whens": [{"years":"all", "months":["september", "october"], "days": "all", "hours":[8, 9, 10, 11, 12, 13]}],
+                    "except_whens": [
+                        {"hours":[11, 12]},
+                        {"months":["september"], "hours":[9]}
+                    ]
+                }
             },
 			"warps": {
-				"test_warp_1":{"x": 1, "y": 1, "dest_map": "town_1", "dest_x": 2, "dest_y": 2},
-				"other_town_test_warp":{"x": 2, "y": 1, "dest_map": "town_2", "dest_x": 2, "dest_y": 2}
+				"1, 1": {"nickname": "test_warp_1", "dest_map": "town_1", "dest_x": 2, "dest_y": 2},
+                "2, 1": {"nickname": "other_town_test_warp", "dest_map": "town_2", "dest_x": 2, "dest_y": 2}
             },
-			"events":{
-                "welcome":{"say": "welcome event!"}
+            "tile_event_triggers":{
+                "5, 5": [{"event": "welcome", "only_once": true}],
+                "6, 6": [{"event": "good_job_nube", "on_item_use":"salve"}],
+                "8, 8": [{"event": "that_does_nothing", "on_move_use":"shine"}],
+                "3, 4": [{"event": "flag_tests", "on_move_use":"shine"}]
+            },
+			"event":{
+                "welcome":[
+                        {"say": "welcome event!"},
+                        {"say": "have a free in battle healing item"},
+                        {"give_item": "salve"},
+                        {"give_items": {"item": "salve", "amount": 5}},
+                        {"say": "dont die"}
+                ],
+                "flag_tests":[
+                    {"set_global_flag": "global_flag_test_1"},
+                    {"set_map_flag": "map_flag_test_1"}
+            ],
+                "pickup_one":[
+                        {"say": "welcome event!"},
+                        {"say": "have a free in battle healing item"},
+                        {"give_item": "salve"},
+                        {"say": "dont die"}
+                ],
+                "nurse_heal": [
+                    {"party_refresh": true}
+                ],
+                "good_job_nube":[
+                    {"say": "good job nube!"}
+                ],
+                "that_does_nothing":[
+                    {"say": "you used shine outside of battle"}
+                ]
             },
 			"npcs":{
                 "joy":{"from": "nurse", "x": 6, "y": 6},
-				"steve":{"x": 3, "y": 3, "motion_pattern": "brownian", "sprite_set": "steve"},
-                "greeter": {"from": "steve", "x"}
+                "greeter_1": {"from": "steve", "x": 2, "y": 2},
+                "greeter_2": {"from": "steve", "x": 3, "y": 3}
             },
-			"tile_defs":{
+			"tiles":{
 				"grass":{"encounters": "ghosts", "comment": "override grass to be encounterless on this map"},
                 "rock":{"allows": "walking", "comment": "override rock collisions on this map"},
                 "tall_rock":{"from,": "rock", "tile_sprite": "rock"}
@@ -42,6 +82,10 @@
 				"ghosts":{
                     "monsters": {
                         "fat_gast": {"from": "gast", "hp":1000, "deltas":{"speed": -5}}
+                    },
+                "minno":{
+                    "monsters": {
+                        "minno": {"from": "minno"}}
                     }
             }
 		}
@@ -54,7 +98,9 @@
 		"flowers":{"allows": "walking", "anim_tile_sprite": "flowers"}
     },
     "npc_defs":{
-        "nurse":{"anim_sprite_set": "nurse"}
+        "nurse":{"anim_sprite_set": "nurse"},
+        "steve":{"x": 3, "y": 3, "motion_pattern": "brownian", "sprite_set": "steve"},
+        "bob":{"x": 3, "y": 4, "motion_pattern": "brownian", "sprite_set": "steve", "on_talk":"give_event_2"}
     },
     "monster_defs":{
         "minno":
@@ -110,7 +156,13 @@
         {
 
         }
-    ]
+    ],
+    "item_defs":{
+        "salve":{
+            "battle": true,
+            "cost"
+        }
+    },
     "tile_sprite_defs":[
         {"def": "rock", "img":{ "char": "r", "hex": "0x3a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b1"}},
         {"def": "dirt", "img":{ "char": "d", "hex": "0x3a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b1"}}
