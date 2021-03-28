@@ -1,2 +1,2 @@
 # MonsterCatcher
-highly modable game engine for a particular brand of game
+a filetype for describing a certain type of game
