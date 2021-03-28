@@ -1,127 +1,64 @@
 {
-	"title": "brown_version",
+    "title": "brown_version",
     "sprite_scale": 8,
-	"maps":[
-		{
-			"id": "town_1",
-			"width": 8,
+	"maps":{
+        "town_1":{
 			"height": 8,
 			"tile_grid": [
-                [
-                    {"from": "rock", "nickname": "brocks_rock", "tile_sprite": "rock_with_squinty_eyes"},
-                    {"allows": "walking", "tile_sprite": "rock"},
-                    {"from": "rock"},
-                    {"from": "rock"},
-                    {"from": "rock"},
-                    {"from": "tall_rock"},
-                    {"from": "rock"},
-                    {"from": "rock"}
-                ],
-				[
-                    {"from": "rock"},
-                    {"from": "dirt", "encounters": {"from": "ghosts"}},
-                    {"from": "dirt", "encounters": {"from": "ghosts"}},
-                    {"from": "flowers"},
-                    {"from": "dirt"},
-                    {"from": "dirt"},
-                    {"from": "dirt"},
-                    {"from": "rock"}
-				],
-                [
-                    {"from": "rock"},
-                    {"from": "dirt", "encounters": {"from": "ghosts"}},
-                    {"from": "dirt", "encounters": {"from": "ghosts"}},
-                    {"from": "dirt"},
-                    {"from": "dirt"},
-                    {"from": "dirt", "encounters": {"monsters": [{"from": "rat"}]}},
-                    {"from": "dirt"},
-                    {"from": "rock"}
-                ],
-                [
-                    {"from": "rock"},
-                    {"from": "dirt"},
-                    {"from": "dirt"},
-                    {"from": "dirt"},
-                    {"from": "dirt"},
-                    {"from": "dirt"},
-                    {"from": "dirt"},
-                    {"from": "rock"}
-                ],
-                [
-                    {"from": "rock"},
-                    {"from": "dirt"},
-                    {"from": "dirt"},
-                    {"from": "dirt"},
-                    {"from": "dirt"},
-                    {"from": "dirt"},
-                    {"from": "dirt"},
-                    {"from": "rock"}
-                ],
-                [
-                    {"from": "rock"},
-                    {"from": "dirt"},
-                    {"from": "dirt"},
-                    {"from": "dirt"},
-                    {"from": "dirt"},
-                    {"from": "grass"},
-                    {"from": "grass"},
-                    {"from": "rock"}
-                ],
-                [
-                    {"from": "rock"},
-                    {"from": "dirt"},
-                    {"from": "dirt"},
-                    {"from": "dirt"},
-                    {"from": "dirt"},
-                    {"from": "grass"},
-                    {"from": "grass", "encounters": {"monsters": [{"from": "rat"}]}},
-                    {"from": "rock"}
-                ],
-                [
-						{"from": "rock"},
-						{"from": "rock"},
-						{"from": "rock"},
-						{"from": "rock"},
-						{"from": "rock"},
-						{"from": "rock"},
-						{"from": "rock"},
-						{"from": "rock"}
-                ]
+                ["rock","rock","rock","rock","rock","tall_rock","rock","rock"],
+                ["rock","dirt","dirt","dirt","flowers","dirt","dirt","rock"],
+                ["rock","dirt","dirt","dirt","flowers","dirt","dirt","rock"],
+                ["rock","dirt","dirt","dirt","flowers","dirt","dirt","rock"],
+                ["rock","dirt","dirt","dirt","flowers","dirt","dirt","rock"],
+                ["rock","dirt","dirt","dirt","flowers","dirt","dirt","rock"],
+                ["rock","dirt","dirt","dirt","flowers","dirt","dirt","rock"],
+                ["rock","dirt","dirt","dirt","flowers","dirt","dirt","rock"],
+                ["rock","rock","rock","rock","rock","tall_rock","rock","rock"]
 			],
-			"warps": [
-				{"def": "test_warp_1", "x": 1, "y": 1, "dest_map": "town_1", "dest_x": 2, "dest_y": 2},
-				{"def": "other_town_test_warp", "x": 2, "y": 1, "dest_map": "town_2", "dest_x": 2, "dest_y": 2}
-			],
-			"events":[
-				{}
-			],
-			"npcs":[
-				{"nickname": "steve", "x": 3, "y": 3, "motion_pattern": "brownian", "sprite_set": "steve"},
-                {"from": "nurse", "nickname": "joy", "x": 6, "y": 6}
-			],
-			"tile_defs":[
-				{"from": "grass", "def": "grass", "encounters": null, "comment": "override grass to be encounterless on this map"},
-                {"from": "rock", "def": "rock", "allows": "walking", "comment": "override rock collisions on this map"},
-                {"from": "rock", "def": "tall_rock", "tile_sprite": "rock"}
-			],
-			"encounters_defs":[
-				{"def": "ghosts", "monsters": [{"from": "gast"}]}
-			]
+            "encounters": {
+                "1, 1": "ghosts"
+            },
+            "encounter_ranges": {
+                "ghost_corner": {"x1": 1, "y1": 1, "x2": 2, "y2": 2, "encounter": "ghosts"}
+            },
+			"warps": {
+				"test_warp_1":{"x": 1, "y": 1, "dest_map": "town_1", "dest_x": 2, "dest_y": 2},
+				"other_town_test_warp":{"x": 2, "y": 1, "dest_map": "town_2", "dest_x": 2, "dest_y": 2}
+            },
+			"events":{
+                "welcome":{"say": "welcome event!"}
+            },
+			"npcs":{
+                "joy":{"from": "nurse", "x": 6, "y": 6},
+				"steve":{"x": 3, "y": 3, "motion_pattern": "brownian", "sprite_set": "steve"},
+                "greeter": {"from": "steve", "x"}
+            },
+			"tile_defs":{
+				"grass":{"encounters": "ghosts", "comment": "override grass to be encounterless on this map"},
+                "rock":{"allows": "walking", "comment": "override rock collisions on this map"},
+                "tall_rock":{"from,": "rock", "tile_sprite": "rock"}
+            },
+			"encounters_defs":{
+				"ghosts":{
+                    "monsters": {
+                        "fat_gast": {"from": "gast", "hp":1000, "deltas":{"speed": -5}}
+                    }
+            }
 		}
-	],
-	"tile_defs":[
-		{"def": "dirt", "allows": "walking", "encounters": false, "tile_sprite": "dirt"},
-		{"def": "grass", "allows": "walking", "encounters": false, "tile_sprite": "grass"},
-		{"def": "rock", "allows": null, "tile_sprite": "rock"},
-		{"def": "water", "allows": "swimming", "tile_sprite": "water"},
-		{"def": "flowers", "allows": "walking", "anim_tile_sprite": "flowers"}
-	],
-    "npc_defs":[
-        {"def": "nurse", "anim_sprite_set": "nurse"}
-    ],
-    "monster_defs":[
+    },
+	"tile_defs":{
+		"dirt":{"allows": "walking", "tile_sprite": "dirt"},
+		"grass":{"allows": "walking", "tile_sprite": "grass"},
+		"rock":{"allows": null, "tile_sprite": "rock"},
+		"water":{"allows": "swimming", "tile_sprite": "water"},
+		"flowers":{"allows": "walking", "anim_tile_sprite": "flowers"}
+    },
+    "npc_defs":{
+        "nurse":{"anim_sprite_set": "nurse"}
+    },
+    "monster_defs":{
+        "minno":
         {
-            "def": "minno",
             "hp": 2,
             "attack": 1,
             "sp_attack": 1,
@@ -140,8 +77,7 @@
                 {"from": "get_hype", "level": 5}
             ]
         },
-        {
-            "def": "gast",
+        "gast":{
             "hp": 5,
             "attack": 1,
             "sp_attack": 2,
@@ -160,7 +96,21 @@
                 {"from": "get_hype", "level": 5}
             ]
         }
-    ],
+    },
+    "move_defs":{
+        "nibble":{
+            "type": "normal",
+            "pp": 15,
+            "power": 1, 
+            "accuracy": 1,
+            "effects": [{"from": "break_skin"}]
+        }
+    },
+    "effect_defs":[
+        {
+
+        }
+    ]
     "tile_sprite_defs":[
         {"def": "rock", "img":{ "char": "r", "hex": "0x3a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b1"}},
         {"def": "dirt", "img":{ "char": "d", "hex": "0x3a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b1"}}
