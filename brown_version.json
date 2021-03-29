@@ -19,16 +19,18 @@
             "one_off_encounters": {
                 "1, 1": {"encounter":"ghosts", 
                     "conditions":{
-                        "when":{"hours":[20, 21, 22, 23, 24, 1, 2, 3, 4, 5]}
+                        "whens":{"hours":[20, 21, 22, 23, 24, 1, 2, 3, 4, 5]}
                     },
                 "2, 2": {"encounter":"minno"}
             },
             "items": {
 				"free_salve":{"item": "salve", "x": 4, "y": 5, "invis": false, "on_pickup_event": "flag_tests",
-                    "conditions":{
-                        "if_global_flag": "global_flag_test_1", "if_map_flag": "map_flag_test_1",
+                    "if_all":{
+                        "global_flags": ["global_flag_test_1"], "map_flags": ["map_flag_test_1"],
                         "whens": [{"years":"all", "months":["september", "october"], "days": "all", "hours":[8, 9, 10, 11, 12, 13]}],
-                        "except_whens": [
+                    },
+                    "but_not_if_any":{
+                        "whens": [
                             {"hours":[11, 12]},
                             {"months":["september"], "hours":[9]}
                         ]
@@ -40,11 +42,14 @@
                 "2, 1": {"nickname": "other_town_test_warp", "dest_map": "town_2", "dest_x": 2, "dest_y": 2}
             },
             "tile_event_triggers":{
-                "5, 5": [{"event": "welcome", "only_once": true}],
-                "6, 6": [{"event": "good_job_nube", "on_item_use":"salve"}],
+                "5, 5": [{"event": "welcome", "only_once": true, "if_all": null, "but_not_if_any": null}],
+                "6, 6": [{"on_item_use":"salve", "event": "good_job_nube"}],
                 "8, 8": [{"event": "that_does_nothing", "on_move_use":"shine"}],
                 "3, 4": [{"event": "flag_tests", "on_move_use":"shine"}]
             },
+            "complex_event_triggers":{
+
+            }
 			"event":{
                 "welcome":[
                         {"say": "welcome event!"},
