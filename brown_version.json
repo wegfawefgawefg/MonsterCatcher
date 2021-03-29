@@ -16,20 +16,21 @@
                 ["rock","dirt","dirt","dirt","flowers","dirt","dirt","rock"],
                 ["rock","rock","rock","rock","rock","tall_rock","rock","rock"]
 			],
-            "one_off_encounters": {
-                "1, 1": {"encounter":"ghosts", 
-                    "conditions":{
-                        "whens":{"hours":[20, 21, 22, 23, 24, 1, 2, 3, 4, 5]}
-                    },
-                "2, 2": {"encounter":"minno"}
-            },
+            "encounter_ranges": [
+                {"x0":0, "y0":0, "x2":1, "y2": 1, "encounter": "ghosts",
+                    "if":{
+                        "whens":[{"months":["september"]}]
+                    }
+                },
+                {"x0":2, "y0":2, "x2":2, "y2": 2, "encounter": "minno"}
+            ],
             "items": {
 				"free_salve":{"item": "salve", "x": 4, "y": 5, "invis": false, "on_pickup_event": "flag_tests",
-                    "if_all":{
+                    "if":{
                         "global_flags": ["global_flag_test_1"], "map_flags": ["map_flag_test_1"],
-                        "whens": [{"years":"all", "months":["september", "october"], "days": "all", "hours":[8, 9, 10, 11, 12, 13]}],
+                        "whens": [{"years":"all", "months":["september", "october"], "days":null, "hours":[8, 9, 10, 11, 12, 13]}],
                     },
-                    "but_not_if_any":{
+                    "not_if":{
                         "whens": [
                             {"hours":[11, 12]},
                             {"months":["september"], "hours":[9]}
@@ -42,31 +43,52 @@
                 "2, 1": {"nickname": "other_town_test_warp", "dest_map": "town_2", "dest_x": 2, "dest_y": 2}
             },
             "tile_event_triggers":{
-                "5, 5": [{"event": "welcome", "only_once": true, "if_all": null, "but_not_if_any": null}],
-                "6, 6": [{"on_item_use":"salve", "event": "good_job_nube"}],
-                "8, 8": [{"event": "that_does_nothing", "on_move_use":"shine"}],
-                "3, 4": [{"event": "flag_tests", "on_move_use":"shine"}]
+                "5, 5": {"event": "welcome", "if": null, 
+                    "not_if":{
+                        "map_flags": ["already_welcomed"]
+                    }
+                }
             },
             "complex_event_triggers":{
-
-            }
-			"event":{
+                "nube_uses_salve":{"on_item_use":"salve", "event": "good_job_nube",
+                    "if":{
+                        "player_at":"6, 6"
+                    }
+                },
+                "does_nothing_alert":{"on_move_use":"shine", "event": "that_does_nothing"}
+            },
+			"event_defs":{
                 "welcome":[
-                        {"say": "welcome event!"},
-                        {"say": "have a free in battle healing item"},
-                        {"give_items": [{"item": "salve", "amount": 5}]},
-                        {"say": "dont die"}
+                    {"say": "welcome event!"},
+                    {"say": "have a free in battle healing item"},
+                    {"clear": true},
+                    {"give_items": [{"item": "salve", "amount": 5}]},
+                    {"say": "dont die"}
                 ],
                 "flag_tests":[
                     {"set_global_flag": "global_flag_test_1"},
                     {"set_map_flag": "map_flag_test_1"}
                 ],
                 "pickup_one":[
-                        {"say": "welcome event!"},
-                        {"say": "have a free in battle healing item"},
-                        {"give_item": "salve"},
-                        {"say": "dont die"},
-                        {"show": { "char": "o", "height": 8, "width": 8, "center": {"x": 4, "y": 6}, "hex": "0x3a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b1"}}
+                    {"say": "Oak: welcome event!"},
+                    {"say": "have a free in battle healing item"},
+                    {"give_item": "salve"},
+                    {"say": "dont die"},
+                    {"show": { "char": "o", "height": 8, "width": 8, "center": {"x": 4, "y": 6}, "hex": "0x3a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b1"}}
+                ],
+                "greeter_1_greeting":[
+                    {"say": "wecom to da land mi broda"},
+                    {"set_map_flag": "spawn_greeter_1"},
+                    {"recheck_npcs": true},
+                    {"walk":{"who":"greeter_1", "x":7, "y":7}},
+                    {"walk":{
+                            "who":"greeter_1", "relative":{
+                                "to":"player", "x":1, "y":0
+                            }
+                        }
+                    },
+                    {"say": "airport na me build em"},
+                    {"turn": {"who":"player", "direction":"right"}}
                 ],
                 "nurse_heal": [
                     {"say": "full hp and pp and shit dawg"},
@@ -75,22 +97,41 @@
                 "good_job_nube":[
                     {"say": "good job nube!"}
                 ],
+                "fuck_you":[
+                    {"say": "fuck you"},
+                    {"event": "fuck_you_again"}
+                ],
+                "fuck_you_again":[
+                    {"say": "fuck_you_again you"}
+                ],
                 "that_does_nothing":[
                     {"say": "you used shine outside of battle"}
+                ],
+                "question_test":[
+                    {"say": "I have a question for you..."},
+                    {"say": "are you the mugu or the masta?"},
+                    {"choose":[
+                        {"choice":"mugu", "event":"i_chose_mugu"}, 
+                        {"choice":"masta", "event":"i_chose_masta"}
+                    ]}
+                ],
+                "i_chose_mugu":[
+                    {"say": "you are the mugu"},
+                    {"pay": -100}
+                ],
+                "i_chose_masta":[
+                    {"say": "you are the masta"},
+                    {"pay": 100}
                 ]
             },
 			"npcs":{
-                "joy":{"from": "nurse", "x": 6, "y": 6, "on_talk_event":"nurse_heal"},
-                "greeter_1": {"from": "steve", "x": 2, "y": 2},
-                "greeter_2": {"from": "steve", "x": 3, "y": 3, 
-                    "conditions":{
-                        "if_global_flag": "global_flag_test_1"
-                    }
-            },
-			"tile_defs":{
-				"grass":{"encounters": "ghosts", "comment": "override grass to be encounterless on this map"},
-                "rock":{"allows": "walking", "comment": "override rock collisions on this map"},
-                "tall_rock":{"from,": "rock", "tile_sprite": "rock"}
+                "joy":{"x": 6, "y": 6, "on_talk_event":"nurse_heal", "facing":"down"},
+                "greeter_1": {"x": -1, "y": -1, "if":{"map_flags":["spawn_greeter_1"]},
+                "greeter_2": {"x": 3, "y": 3, "motion":"rotating", "on_sight":{"range":5, "event":"fuck_you"},
+                    "if":{
+                        "global_flags": ["global_flag_test_1"]
+                    },
+                "questioner_1": {"x":5, "y": 0, "on_talk":"question_test"}
             },
 			"encounters_defs":{
 				"ghosts":{
@@ -110,11 +151,6 @@
 		"rock":{"allows": null, "tile_sprite": "rock"},
 		"water":{"allows": "swimming", "tile_sprite": "water"},
 		"flowers":{"allows": "walking", "anim_tile_sprite": "flowers"}
-    },
-    "npc_defs":{
-        "nurse":{"anim_sprite_set": "nurse"},
-        "steve":{"x": 3, "y": 3, "motion_pattern": "brownian", "sprite_set": "steve"},
-        "bob":{"x": 3, "y": 4, "motion_pattern": "brownian", "sprite_set": "steve", "on_talk":"give_event_2"}
     },
     "monster_defs":{
         "minno":
