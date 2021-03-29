@@ -16,18 +16,23 @@
                 ["rock","dirt","dirt","dirt","flowers","dirt","dirt","rock"],
                 ["rock","rock","rock","rock","rock","tall_rock","rock","rock"]
 			],
-            "encounters": {
+            "one_off_encounters": {
                 "1, 1": {"encounter":"ghosts", 
-                    "when":{"hours":[20, 21, 22, 23, 24, 1, 2, 3, 4, 5]}},
+                    "conditions":{
+                        "when":{"hours":[20, 21, 22, 23, 24, 1, 2, 3, 4, 5]}
+                    },
                 "2, 2": {"encounter":"minno"}
             },
             "items": {
-				"free_salve":{"item": "salve", "x": 4, "y": 5, "invis": false,
-                    "whens": [{"years":"all", "months":["september", "october"], "days": "all", "hours":[8, 9, 10, 11, 12, 13]}],
-                    "except_whens": [
-                        {"hours":[11, 12]},
-                        {"months":["september"], "hours":[9]}
-                    ]
+				"free_salve":{"item": "salve", "x": 4, "y": 5, "invis": false, "on_pickup_event": "flag_tests",
+                    "conditions":{
+                        "if_global_flag": "global_flag_test_1", "if_map_flag": "map_flag_test_1",
+                        "whens": [{"years":"all", "months":["september", "october"], "days": "all", "hours":[8, 9, 10, 11, 12, 13]}],
+                        "except_whens": [
+                            {"hours":[11, 12]},
+                            {"months":["september"], "hours":[9]}
+                        ]
+                    }
                 }
             },
 			"warps": {
@@ -44,21 +49,22 @@
                 "welcome":[
                         {"say": "welcome event!"},
                         {"say": "have a free in battle healing item"},
-                        {"give_item": "salve"},
-                        {"give_items": {"item": "salve", "amount": 5}},
+                        {"give_items": [{"item": "salve", "amount": 5}]},
                         {"say": "dont die"}
                 ],
                 "flag_tests":[
                     {"set_global_flag": "global_flag_test_1"},
                     {"set_map_flag": "map_flag_test_1"}
-            ],
+                ],
                 "pickup_one":[
                         {"say": "welcome event!"},
                         {"say": "have a free in battle healing item"},
                         {"give_item": "salve"},
-                        {"say": "dont die"}
+                        {"say": "dont die"},
+                        {"show": { "char": "o", "height": 8, "width": 8, "center": {"x": 4, "y": 6}, "hex": "0x3a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b1"}}
                 ],
                 "nurse_heal": [
+                    {"say": "full hp and pp and shit dawg"},
                     {"party_refresh": true}
                 ],
                 "good_job_nube":[
@@ -69,11 +75,14 @@
                 ]
             },
 			"npcs":{
-                "joy":{"from": "nurse", "x": 6, "y": 6},
+                "joy":{"from": "nurse", "x": 6, "y": 6, "on_talk_event":"nurse_heal"},
                 "greeter_1": {"from": "steve", "x": 2, "y": 2},
-                "greeter_2": {"from": "steve", "x": 3, "y": 3}
+                "greeter_2": {"from": "steve", "x": 3, "y": 3, 
+                    "conditions":{
+                        "if_global_flag": "global_flag_test_1"
+                    }
             },
-			"tiles":{
+			"tile_defs":{
 				"grass":{"encounters": "ghosts", "comment": "override grass to be encounterless on this map"},
                 "rock":{"allows": "walking", "comment": "override rock collisions on this map"},
                 "tall_rock":{"from,": "rock", "tile_sprite": "rock"}
