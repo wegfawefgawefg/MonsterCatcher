@@ -136,7 +136,40 @@
 			"encounters_defs":{
 				"ghosts":{
                     "monsters": {
-                        "fat_gast": {"from": "gast", "hp":1000, "deltas":{"speed": -5}}
+                        "fat_gast": {
+                            "from": "gast", 
+                            "stat_mod":{
+                                "hp":{
+                                    "set":{},
+                                    "add":{"base":1000},
+                                    "multiply":{}
+                                },
+                                "speed":{
+                                    "set":{"base":0},
+                                    "add":{},
+                                    "multiply":{}
+                                }
+                            },
+                            "learnset_mod":{
+                                "add":["waddle"],
+                                "remove":[]
+                            }
+                        },
+                        "quick_gast": {
+                            "from": "gast", 
+                            "stat_mod":{
+                                "hp":{
+                                    "set":{},
+                                    "add":{},
+                                    "multiply":{}
+                                },
+                                "speed":{
+                                    "set":{"base":20},
+                                    "add":{"speed":0.1},
+                                    "multiply":{}
+                                }
+                            }
+                        }
                     },
                 "minno":{
                     "monsters": {
@@ -155,18 +188,15 @@
     "monster_defs":{
         "minno":
         {
-            "hp": 2,
-            "attack": 1,
-            "sp_attack": 1,
-            "defense": 1,
-            "sp_defense": 1,
-            "speed": 5,
+            "hp": {"base":2, "speed":0, "acc":0, "jerk":0, "min":0, "max":0},
+            "attack": {"base":2, "speed":0, "acc":0, "jerk":0, "min":0, "max":0},
+            "sp_attack": {"base":2, "speed":0, "acc":0, "jerk":0, "min":0, "max":0},
+            "defense": {"base":2, "speed":0, "acc":0, "jerk":0, "min":0, "max":0},
+            "sp_defense": {"base":2, "speed":0, "acc":0, "jerk":0, "min":0, "max":0},
+            "speed": {"base":2, "speed":0, "acc":0, "jerk":0, "min":0, "max":0},
 
-            "attack_growth": 0,
-            "sp_attack_growth": 0,
-            "defense_growth": 1,
-            "sp_defense_growth": 1,
-            "speed_growth": 10,
+            "xp": {"base":2, "speed":0, "acc":0, "jerk":0, "min":0, "max":0},
+            "xp_yield": {"base":2, "speed":0, "acc":0, "jerk":0, "min":0, "max":0},
 
             "learnset":[
                 {"from": "nibble", "level": 1},
@@ -187,6 +217,16 @@
             "sp_defense_growth": 2,
             "speed_growth": 1,
 
+            "hp":           {"base":2, "speed":0, "acc":0, "jerk":0, "min":0, "max":0},
+            "attack":       {"base":2, "speed":0, "acc":0, "jerk":0, "min":0, "max":0},
+            "sp_attack":    {"base":2, "speed":0, "acc":0, "jerk":0, "min":0, "max":0},
+            "defense":      {"base":2, "speed":0, "acc":0, "jerk":0, "min":0, "max":0},
+            "sp_defense":   {"base":2, "speed":0, "acc":0, "jerk":0, "min":0, "max":0},
+            "speed":        {"base":2, "speed":0, "acc":0, "jerk":0, "min":0, "max":0},
+
+            "xp":           {"base":2, "speed":0, "acc":0, "jerk":0, "min":0, "max":0},
+            "xp_yield":     {"base":2, "speed":0, "acc":0, "jerk":0, "min":0, "max":0},
+
             "learnset":[
                 {"from": "nibble", "level": 1},
                 {"from": "get_hype", "level": 5}
@@ -199,12 +239,131 @@
             "pp": 15,
             "power": 1, 
             "accuracy": 1,
-            "effects": [{"from": "break_skin"}]
+            "target": "other",
+            "effects": ["break_skin"]
+        },
+        "drink_coffee":{
+            "type": "normal",
+            "pp": 15,
+            "power": 0, 
+            "accuracy": 1,
+            "target": "self",
+            "clear_effects":["tired"]
+        },
+        "self_hit":{
+            "type": null,
+            "pp": 15,
+            "power": 0.5, 
+            "accuracy": 1,
+            "target": "self"
+        },
+        "quick_attack":{
+            "type": "normal",
+            "pp": 15,
+            "power": 0.1, 
+            "accuracy": 1,
+            "target": "other",
+            "priority":1
+        },
+        "sand_attack":{
+            "type": "normal",
+            "pp": 15,
+            "power": 0.0, 
+            "accuracy": 1,
+            "target": "other",
+            "effects": ["sand_attack_effect"]
+        },
+        "slow":{
+            "type": "normal",
+            "pp": 15,
+            "power": 0.0, 
+            "accuracy": 1,
+            "target": "other",
+            "effects": ["slow_effect"]
+        },
+        "mega_slow":{
+            "type": "normal",
+            "pp": 15,
+            "power": 0.0, 
+            "accuracy": 1,
+            "target": "other",
+            "effects": ["slow_effect", "slow_effect"]
+        },
+        "speed_up":{
+            "type": "normal",
+            "pp": 15,
+            "power": 0.0, 
+            "accuracy": 0.5,
+            "target": "other",
+            "effects":[{"effect":"fast_effect", "chance":0.5, "stacks":2}]
+        },
+        "swift":{
+            "type": "normal",
+            "pp": 15,
+            "power": 1, 
+            "cant_miss":true,
+            "accuracy": 0.5,
+            "target": "other",
+            "effects":{
+                "fast_effect":{
+                    "chance":0.5,
+                    "stacks":2
+                }
+        },
         }
+
     },
     "effect_defs":[
         {
+            "fast_effect":{
+                "speed":{"level":1},
+                "stacks":{"max":5, "type":"add"}
+            },
+            "slow_effect":{
+                "speed":{"level":-1},
+                "stacks":{"max":5, "type":"add"}
+            },            
+            "sand_attack_effect":{
+                "accuracy":{"times":0.5},
+                "stacks":{"max":5, "type":"multiply"}
+            },
+            "tired":{
+                "speed":{"times":0.5},
+                "attack":{"times":0.5},
+                "lasts":{"min":1, "max":3},
+                "end_chance":0.3
+            },
+            "paralyzed":{
+                "speed":{"times":0.25},
+                "skip_turn":{"chance":0.5, "message":"ur paralyzed bruh"}
+            },
 
+            "effect_mod":{
+                "effects":{
+                    "all":{
+                        "chance":{"set":, "add":, "multiply":},
+                        "lasts":{"max":, "multiply":},
+                    },
+                    "burn":{
+                        "chance":{"set":, "add":, "multiply":2.0}
+
+                    }
+                }
+            }
+
+
+            "burn":{
+                "attack":{"times":0.5},
+                "lasts":{"after_battle":true}
+            },
+            "asleep":{
+                "lasts":{"min":2, "max":5, "after_battle":true},
+                "skip_turn":{"chance":1.0, "message":"ur asleep"}
+            },
+            "confusion":{
+                "lasts":{"min":2, "max":4},
+                "use_move":{"chance":0.5, "move":"self_hit"}
+            }
         }
     ],
     "item_defs":{
