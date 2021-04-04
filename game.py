@@ -4,39 +4,9 @@ from time import sleep
 
 import keyboard 
 
-from tiles import GrassTile, RockTile
 from character import Character, Player
-
-class Map:
-    def __init__(self) -> None:
-        self.width = 16
-        self.height = 16
-        self.tiles = []
-        for y in range(self.height):
-            row = []
-            for x in range(self.width):
-                if (y == 0) or (x == 0) or (y == self.width - 1) or (x == self.height - 1):
-                    tile = RockTile()
-                else:
-                    tile = GrassTile()
-                row.append(tile)
-            self.tiles.append(row)
-
-    def render(self, player, overworld_buffer):
-        x1 = player.x - 4
-        y1 = player.y - 4
-        x1 = max(x1, 0)
-        y1 = max(y1, 0)
-        x2 = x1 + overworld_buffer.width
-        y2 = y1 + overworld_buffer.height
-        print(f"{x1} {x2} {y1} {y2}")
-        for o_y, y in enumerate(range(y1, y2)):
-            for o_x, x in enumerate(range(x1, x2)):
-                if 0 <= x < self.width and 0 <= y < self.height:
-                    tile = self.tiles[y][x]
-                    overworld_buffer.buffer[o_y][o_x] = tile.char
-                else:
-                    overworld_buffer.buffer[o_y][o_x] = " "
+from zone import Zone 
+from map import Map
 
 class OverworldBuffer:
     def __init__(self) -> None:
@@ -60,13 +30,27 @@ class OverworldBuffer:
 
 class Game:
     def __init__(self) -> None:
-        self.map = Map()
         self.render_mode = "char"
         self.mode = "overworld"
         self.overworld_buffer = OverworldBuffer()
 
         self.player = Player()
-        self.npcs = []
+
+        #   load these from files later
+        self.zones = {
+            "salad_town": Zone()
+        }
+
+        self.current_zone_name = None
+        self.current_zone = None
+        self.map = None
+        self.npcs = None
+
+    def load_zone(self, zone):
+        self.current_zone_name = zone
+        self.zone = self.zones[self.current_zone_name]
+        self.map = Map(self.zone)
+        self.npcs = self.zone.get_npcs()
 
     def render_npcs(self):
         pass
@@ -89,6 +73,7 @@ def clear():
 
 if __name__ == "__main__":
     game = Game()
+    game.load_zone("salad_town")
 
     while True:
         clear()
@@ -103,6 +88,6 @@ if __name__ == "__main__":
             game.player.move_right(game.map, game.npcs)
         print(f"player: {game.player.x} {game.player.y}")
         time.sleep(0.1)
-        
+
 
 

@@ -1,13 +1,14 @@
 class Character:
-    def __init__(self, x, y, char) -> None:
+    def __init__(self, x, y, chars) -> None:
         self.x = x
         self.y = y
-        self.char = char
+        self.char = chars["default"]
 
-        self.down_char = "v"
-        self.right_char = ">"
-        self.left_char = "<"
-        self.up_char = "^"
+        if chars["directional"]:
+            self.down_char = "v"
+            self.right_char = ">"
+            self.left_char = "<"
+            self.up_char = "^"
 
     def move(self, x, y, map, npcs):
         #   is new spot on map?
