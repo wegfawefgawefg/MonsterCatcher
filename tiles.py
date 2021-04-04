@@ -1,5 +1,3 @@
-from typing import AbstractSet
-
 class Tile:
     def __init__(self, type, allows, char, sprite=None) -> None:
         self.type = type

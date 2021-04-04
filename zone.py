@@ -1,3 +1,4 @@
+from npcs import GreeterNPC
 from tiles import GrassTile, RockTile
 
 class Zone:
@@ -21,16 +22,8 @@ class SaladTownZone(Zone):
                 else:
                     tile = GrassTile()
                 row.append(tile)
-            self.tile_grid.append(row)
+            tile_grid.append(row)
 
-        num_npcs = 2
-        npcs = []
-        for _ in range(num_npcs):
-            npc = NPC()
-            npcs.append(npc)
+        npcs = [GreeterNPC()]
 
-        super().__init__(
-            width, 
-            height, 
-            tile_grid
-            npcs)
+        super().__init__(width, height, tile_grid, npcs)
