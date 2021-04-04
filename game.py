@@ -4,8 +4,8 @@ from time import sleep
 
 import keyboard 
 
-from character import Character, Player
-from zone import Zone 
+from character import Player
+from zone import SaladTownZone
 from map import Map
 
 class OverworldBuffer:
@@ -38,7 +38,7 @@ class Game:
 
         #   load these from files later
         self.zones = {
-            "salad_town": Zone()
+            "salad_town": SaladTownZone()
         }
 
         self.current_zone_name = None
@@ -50,16 +50,20 @@ class Game:
         self.current_zone_name = zone
         self.zone = self.zones[self.current_zone_name]
         self.map = Map(self.zone)
-        self.npcs = self.zone.get_npcs()
+        self.npcs = self.zone.npcs
+
+    def get_view(self):
+        tl 
 
     def render_npcs(self):
-        pass
+        for npc in npcs:
+
 
     def render(self):
         if self.mode == "overworld":
             self.map.render(self.player, self.overworld_buffer)
-            self.player.render(self.overworld_buffer)
-        
+            self.player.render(self.player, self.overworld_buffer)
+            self.render_npcs()
 
             print("OVERWORLD\n")
             print("__________")
