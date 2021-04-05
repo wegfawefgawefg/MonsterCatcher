@@ -1,3 +1,4 @@
+from engine import Engine
 import time
 from os import system, name
 from time import sleep
@@ -7,6 +8,7 @@ import keyboard
 from character import Player
 from zone import SaladTownZone
 from map import Map
+from cam import Cam
 
 class OverworldBuffer:
     def __init__(self) -> None:
@@ -32,7 +34,6 @@ class Game:
     def __init__(self) -> None:
         self.render_mode = "char"
         self.mode = "overworld"
-        self.overworld_buffer = OverworldBuffer()
 
         self.player = Player()
 
@@ -46,28 +47,11 @@ class Game:
         self.map = None
         self.npcs = None
 
-    def load_zone(self, zone):
-        self.current_zone_name = zone
+    def load_zone(self, zone_name):
+        self.current_zone_name = zone_name
         self.zone = self.zones[self.current_zone_name]
         self.map = Map(self.zone)
         self.npcs = self.zone.npcs
-
-    def get_view(self):
-        tl 
-
-    def render_npcs(self):
-        for npc in npcs:
-
-
-    def render(self):
-        if self.mode == "overworld":
-            self.map.render(self.player, self.overworld_buffer)
-            self.player.render(self.player, self.overworld_buffer)
-            self.render_npcs()
-
-            print("OVERWORLD\n")
-            print("__________")
-            print(self.overworld_buffer)
 
 def clear():
     if name == 'nt':
@@ -76,12 +60,20 @@ def clear():
         _ = system('clear')
 
 if __name__ == "__main__":
+    PLAYER_OFFSET_x = 4
+    PLAYER_OFFSET_Y = 4
+
+    overworld_buffer = OverworldBuffer()
+    engine = Engine()
     game = Game()
     game.load_zone("salad_town")
+    cam = Cam(width=overworld_buffer.width, height=overworld_buffer.height)
 
     while True:
+        cam.set_pos(game.player.x - PLAYER_OFFSET_x, game.player.y - PLAYER_OFFSET_Y)
+
         clear()
-        game.render()
+        engine.render(game, cam, overworld_buffer)
         if keyboard.read_key() == "w":
             game.player.move_up(game.map, game.npcs)
         elif keyboard.read_key() == "a":

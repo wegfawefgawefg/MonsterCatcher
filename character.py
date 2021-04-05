@@ -42,28 +42,8 @@ class Character:
         self.render_state = "facing_up"
         self.move(self.x, self.y - 1, map, npcs)
 
-    def render(self, player, overworld_buffer):
-        ''' assumes you already checked the character is on screen  '''
-        if self.render_state in self.pixie.chars:
-            char = self.pixie.chars[self.render_state]
-        else:
-            char = self.pixie.chars["default"]
-        x = 4 + self.x - player.x
-        y = 4 + self.y - player.y
-        overworld_buffer.buffer[y][x] = char
 
 class Player(Character):
     def __init__(self) -> None:
         pixie = PlayerPixie()
         super().__init__(x=4, y=4, motion="static", pixie=pixie)
-
-    #def render(self, overworld_buffer):
-    #    write_x = 4
-    #    write_y = 4
-    #    if self.x < 4:
-    #        write_x = self.x
-    #    if self.y < 4:
-    #        write_y = self.y
-    #    super().render(overworld_buffer)
-        
-        #overworld_buffer.buffer[write_y][write_x] = self.char
