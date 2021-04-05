@@ -42,7 +42,6 @@ class Character:
         self.render_state = "facing_up"
         self.move(self.x, self.y - 1, map, npcs)
 
-
 class Player(Character):
     def __init__(self) -> None:
         pixie = PlayerPixie()

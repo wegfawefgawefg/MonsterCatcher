@@ -16,12 +16,10 @@ class GreeterPixie(Pixie):
         height = 8
         chars = {
             "default": "M",
-            "directional": {
-                "facing_down": "<",
-                "facing_right": ">",
-                "facing_left": "<",
-                "facing_up": "^",
-            }
+            "facing_down": "v",
+            "facing_right": ">",
+            "facing_left": "<",
+            "facing_up": "^",
         }
         sprites = {
             "default": "0x3a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b1"
@@ -35,12 +33,10 @@ class PlayerPixie(Pixie):
         height = 8
         chars = {
             "default": "P",
-            "directional": {
-                "facing_down": "<",
-                "facing_right": ">",
-                "facing_left": "<",
-                "facing_up": "^",
-            }
+            "facing_down": "v",
+            "facing_right": ">",
+            "facing_left": "<",
+            "facing_up": "^",
         }
         sprites = {
             "default": "0x3a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b1"

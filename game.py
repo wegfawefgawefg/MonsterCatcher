@@ -53,6 +53,10 @@ class Game:
         self.map = Map(self.zone)
         self.npcs = self.zone.npcs
 
+    def step(self):
+        for npc in self.npcs:
+            npc.step()
+
 def clear():
     if name == 'nt':
         _ = system('cls')
