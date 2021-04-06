@@ -6,12 +6,10 @@ class Rect:
         self.height = height
 
     def contains(self, x, y):
-        tl_x = self.x
-        tl_y = self.y
         br_x = self.x + self.width
         br_y = self.y + self.height
-        if tl_x <= x <= br_x and\
-                tl_y <= y <= br_y:
+        if self.x <= x < br_x and\
+                self.y <= y < br_y:
             return True
         else:
             return False
@@ -24,8 +22,15 @@ class Cam:
         self.rect.x = x
         self.rect.y = y
 
-    def contains(self, x, y):
-        return self.rect.contains(x, y)
+    def contains_cam_space(self, camx, camy):
+        if 0 <= camx < self.rect.width and\
+                0 <= camy < self.rect.height:
+            return True
+        else:
+            return False
+        
+    def contains_world_space(self, x, y):
+        return self.rect.contains(x, y)        
 
     def to_cam_space(self, x, y):
         cam_space_x = x - self.rect.x

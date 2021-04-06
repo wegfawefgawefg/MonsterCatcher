@@ -1,11 +1,46 @@
+import random
+
 from pixies import *
 
+class Motion:
+    def __init__(self, pattern="static", speed=1000, direction=None, ) -> None:
+        self.pattern = pattern
+        self.speed = speed
+        self.direction = direction
+
 class Character:
-    def __init__(self, x, y, motion, pixie) -> None:
+    def __init__(self, x, y, motion, pixie_name) -> None:
         self.x = x
         self.y = y
-        self.pixie = pixie
-        self.render_state = "default"
+        self.pixie = get_pixie_from_name(pixie_name)
+        self.render_state = "facing_down"
+        self.motion = motion
+        self.motion_speed = 1000
+        self.motion_dt_sum = int(random.random() * 1000)
+
+    def step(self, dt):
+        self.motion_dt_sum += dt
+        if self.motion_dt_sum >= self.motion_speed:
+            self.motion_dt_sum = 0
+            if self.motion.pattern == "rotating":
+                if self.motion.direction == "clockwise":
+                    if self.render_state == "facing_down":
+                        self.render_state = "facing_left"
+                    elif self.render_state == "facing_left":
+                        self.render_state = "facing_up"
+                    elif self.render_state == "facing_up":
+                        self.render_state = "facing_right"
+                    elif self.render_state == "facing_right":
+                        self.render_state = "facing_down"
+                elif self.motion.direction == "counterclockwise":
+                    if self.render_state == "facing_down":
+                        self.render_state = "facing_right"
+                    elif self.render_state == "facing_right":
+                        self.render_state = "facing_up"
+                    elif self.render_state == "facing_up":
+                        self.render_state = "facing_left"
+                    elif self.render_state == "facing_left":
+                        self.render_state = "facing_down"
 
     def move(self, x, y, map, npcs):
         #   is new spot on map?

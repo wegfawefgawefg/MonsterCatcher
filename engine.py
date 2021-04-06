@@ -16,7 +16,7 @@ class Engine:
         if character.render_state in character.pixie.chars:
             char = character.pixie.chars[character.render_state]
         else:
-            char = character.pixie.chars["default"]
+            char = character.pixie.chars["facing_down"]
         overworld_buffer.buffer[buffer_y][buffer_x] = char
 
     def render_player(self, cam, player, overworld_buffer):
@@ -26,7 +26,7 @@ class Engine:
     def render_npcs(self, cam, npcs, overworld_buffer):
         for npc in npcs:
             cam_x, cam_y = cam.to_cam_space(npc.x, npc.y)
-            if cam.contains(cam_x, cam_y):
+            if cam.contains_cam_space(cam_x, cam_y):
                 self.render_character(npc, cam_x, cam_y, overworld_buffer)
 
     def render(self, game, cam, overworld_buffer):
