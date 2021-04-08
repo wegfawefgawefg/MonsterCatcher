@@ -1,8 +1,8 @@
 from core import Move
 
-class GetHype(Move):
+class DrinkCoffee(Move):
     def __init__(self):
-        self.name = "get_hype"
+        self.name = "drink coffee"
         self.pp = 15
         self.power = 1
         self.accuracy = 1

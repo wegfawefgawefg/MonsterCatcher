@@ -1,0 +1,3 @@
+from monster_registrar import monster_registrar
+
+print(monster_registrar.monster_registrar)

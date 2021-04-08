@@ -7,4 +7,4 @@ class Stats:
         self.sp_defense=sp_defense
         self.speed=speed
         self.xp_curve=xp_curve
-        self.xp_yield=1
+        self.xp_yield=xp_yield

@@ -1,4 +1,6 @@
-class Nibble:
+from core import Move
+
+class Nibble(Move):
     def __init__(self):
         self.name = "nibble"
         self.pp = 15

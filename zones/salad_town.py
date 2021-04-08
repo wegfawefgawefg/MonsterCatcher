@@ -1,9 +1,10 @@
-from zone import Zone
+from core import Zone
+from core import Character
+
 import tiles
 import monsters
-from character import Character
 
-class SaladTownZone(Zone):
+class SaladTown(Zone):
     def __init__(self) -> None:
         tile_grid = [
             ["rock", "rock", "rock", "rock", "rock", "rock", "rock", "rock", "rock", "rock", "rock", "rock", "rock", "rock", "rock", "rock", ],
@@ -33,14 +34,14 @@ class SaladTownZone(Zone):
 
         super().__init__(width, height, tile_grid, npcs)
 
-class GreeterNPC(Character):
+class Greeter(Character):
     def __init__(self, x, y) -> None:
         x, y = x, y
         motion = Motion("rotating", direction="clockwise")
         pixie_name = "greeter"
         super().__init__(x, y, motion)
 
-class CCGreeterNPC(Character):
+class CCGreeter(Character):
     def __init__(self, x, y) -> None:
         x, y = x, y
         motion = Motion("rotating", direction="counterclockwise")

@@ -1,18 +1,10 @@
 import random
 
-from pixies import *
-
-class Motion:
-    def __init__(self, pattern="static", speed=1000, direction=None, ) -> None:
-        self.pattern = pattern
-        self.speed = speed
-        self.direction = direction
-
 class Character:
-    def __init__(self, x, y, motion, pixie_name) -> None:
+    def __init__(self, x, y, motion, pixie) -> None:
         self.x = x
         self.y = y
-        self.pixie = get_pixie_from_name(pixie_name)
+        self.pixie = pixie
         self.render_state = "facing_down"
         self.motion = motion
         self.motion_speed = 1000
@@ -77,7 +69,3 @@ class Character:
         self.render_state = "facing_up"
         self.move(self.x, self.y - 1, map, npcs)
 
-class Player(Character):
-    def __init__(self) -> None:
-        pixie = PlayerPixie()
-        super().__init__(x=4, y=4, motion="static", pixie=pixie)

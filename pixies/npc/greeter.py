@@ -1,6 +1,6 @@
-from pixie import Pixie
+from core import Pixie
 
-class GreeterPixie(Pixie):
+class Greeter(Pixie):
     def __init__(self) -> None:
         name = "greeter"
         width = 8

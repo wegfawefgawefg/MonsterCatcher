@@ -1,5 +1,3 @@
-from cam import *
-
 class Engine:
     def render_map(self, cam, map, overworld_buffer):
         for y in range(overworld_buffer.height):

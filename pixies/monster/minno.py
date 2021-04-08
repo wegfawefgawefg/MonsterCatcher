@@ -1,6 +1,6 @@
-from pixie import Pixie
+from core import Pixie
 
-class MinnoPixie(Pixie):
+class Minno(Pixie):
     def __init__(self) -> None:
         name = "player"
         width = 8
@@ -18,6 +18,3 @@ class MinnoPixie(Pixie):
             "default": "0x3a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b103a2b1"
         }
         super().__init__(name, width, height, chars, sprites)
-
-say()
-move_to()

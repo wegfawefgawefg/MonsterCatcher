@@ -1,6 +1,6 @@
-from pixie import Pixie
+from core import Pixie
 
-class PlayerPixie(Pixie):
+class Player(Pixie):
     def __init__(self) -> None:
         name = "player"
         width = 8
