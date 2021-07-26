@@ -1,5 +1,5 @@
-from core import Tile
-class Grass(Tile):
+import core
+class Grass(core.Tile):
     def __init__(self) -> None:
-        super().__init__(type="grass", allows=True, char=".")
+        super().__init__(name="grass", allows=True, char=".")
 

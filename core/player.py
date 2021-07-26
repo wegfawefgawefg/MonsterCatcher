@@ -1,6 +1,7 @@
-from core import Character
+import core
+import pixies
 
-class Player(Character):
+class Player(core.Character):
     def __init__(self) -> None:
         pixie = pixies.Player()
         super().__init__(x=4, y=4, motion="static", pixie=pixie)

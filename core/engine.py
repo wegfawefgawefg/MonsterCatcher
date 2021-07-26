@@ -1,3 +1,5 @@
+import core
+
 class Engine:
     def render_map(self, cam, map, overworld_buffer):
         for y in range(overworld_buffer.height):
@@ -27,12 +29,20 @@ class Engine:
             if cam.contains_cam_space(cam_x, cam_y):
                 self.render_character(npc, cam_x, cam_y, overworld_buffer)
 
-    def render(self, game, cam, overworld_buffer):
-        if game.mode == "overworld":
-            self.render_map(cam, game.map, overworld_buffer)
-            self.render_player(cam, game.player, overworld_buffer)
-            self.render_npcs(cam, game.npcs, overworld_buffer)
+    def render_overworld(self, game, cam, overworld_buffer):
+        self.render_map(cam, game.map, overworld_buffer)
+        self.render_player(cam, game.player, overworld_buffer)
+        self.render_npcs(cam, game.npcs, overworld_buffer)
 
-            print("OVERWORLD\n")
-            print("__________")
-            print(overworld_buffer)
+        #print("OVERWORLD\n")
+        #print("__________")
+        print(overworld_buffer)
+
+    def render_main_menu(self):
+        print("MAIN MENU\npress enter")
+
+    def render(self, game, cam, overworld_buffer):
+        if game.mode == core.Modes.OVERWORLD:
+            self.render_overworld(game, cam, overworld_buffer)
+        elif game.mode == core.Modes.MAIN_MENU:
+            self.render_main_menu()

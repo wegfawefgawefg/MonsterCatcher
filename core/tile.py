@@ -1,9 +1,9 @@
 class Tile:
-    def __init__(self, type, allows, char, sprite=None) -> None:
-        self.type = type
+    def __init__(self, name, allows, char, sprite=None) -> None:
+        self.name = name
         self.allows = allows
         self.char = char
         self.sprite = None
 
     def __repr__(self):
-        return f"{self.type} tile"
+        return f"{self.name} tile"

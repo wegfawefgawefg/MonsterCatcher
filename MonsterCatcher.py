@@ -3,7 +3,9 @@ from os import system, name
 
 import pygame   #   keyboard
 
-from core import Game, Engine, OverworldBuffer
+import core
+import zones
+import tiles
 
 def clear():
     if name == 'nt':
@@ -15,39 +17,22 @@ def millis():
     return time.time() * 1000
 
 from pygame.locals import (
-    K_UP,
-    K_DOWN,
-    K_LEFT,
-    K_RIGHT,
     K_ESCAPE,
     KEYDOWN,
     QUIT,
 )
 
-def handle_inputs(game, pressed_keys):
-    if pressed_keys[K_UP]:
-        game.player.move_up(game.map, game.npcs)
-    if pressed_keys[K_DOWN]:
-        game.player.move_down(game.map, game.npcs)
-    if pressed_keys[K_LEFT]:
-        game.player.move_left(game.map, game.npcs)
-    if pressed_keys[K_RIGHT]:
-        game.player.move_right(game.map, game.npcs)
-
 if __name__ == "__main__":
     PLAYER_OFFSET_X = 4
     PLAYER_OFFSET_Y = 4
 
-    overworld_buffer = OverworldBuffer()
-    engine = Engine()
-    game = Game()
-    game.load_pixies()
-    game.load_moves()
-    game.load_monsters()
-    game.load_zones()
+    overworld_buffer = core.OverworldBuffer()
+    engine = core.Engine()
+    game = core.Game()
+    game.zones["salad_town"] = zones.SaladTown()
     game.set_current_zone("salad_town")
     clock = pygame.time.Clock()
-    cam = Cam(width=overworld_buffer.width, height=overworld_buffer.height)
+    cam = core.Cam(width=overworld_buffer.width, height=overworld_buffer.height)
 
     FRAME_RATE = 60
     SCREEN_WIDTH, SCREEN_HEIGHT = 50, 50
@@ -64,8 +49,9 @@ if __name__ == "__main__":
                     running = False
             elif event.type == QUIT:
                 running = False
+
         pressed_keys =  pygame.key.get_pressed()
-        handle_inputs(game, pressed_keys)
+        game.handle_inputs(pressed_keys)
             
         clear()
         cam.set_pos(game.player.x - PLAYER_OFFSET_X, game.player.y - PLAYER_OFFSET_Y)

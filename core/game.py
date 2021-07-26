@@ -1,45 +1,42 @@
 from os import system, name
 from time import sleep
+from enum import Enum
 
-#from character import Player
-#from zone import SaladTownZone
-#from map import Map
-#from cam import Cam
+from pygame.constants import K_0
 
-class OverworldBuffer:
-    def __init__(self) -> None:
-        self.height = 9
-        self.width = 10
-        self.buffer = []
-        for y in range(self.height):
-            row = []
-            for x in range(self.width):
-                row.append(" ")
-            self.buffer.append(row)
-        print(f"overworld_dims {len(self.buffer)} {len(self.buffer[0])}")
+import core
 
-    def __repr__(self):
-        row_strings = []
-        for row in self.buffer:
-            row_string = "".join(row) + "\n"
-            row_strings.append(row_string)
-        string_overworld = "".join([row_string for row_string in row_strings])
-        return string_overworld
+from pygame.locals import (
+    K_UP,
+    K_DOWN,
+    K_LEFT,
+    K_RIGHT,
+    K_ESCAPE,
+    K_p,
+    K_0,
+    KEYDOWN,
+    QUIT,
+    K_RETURN,
+    K_t,
+    
+)
+
+class Modes(Enum):
+    OVERWORLD = 1
+    PARTY = 2
+    MAIN_MENU = 3
 
 class Game:
     def __init__(self) -> None:
         self.pixies = {}
         self.monsters = {}
         self.render_mode = "char"
-        self.mode = "overworld"
+        self.mode = Modes.MAIN_MENU
 
-        self.player = Player()
+        self.player = core.Player()
         #self.party = Party()
 
-        #   load these from files later
-        self.zones = {
-            "salad_town": SaladTownZone()
-        }
+        self.zones = {}
 
         self.current_zone_name = None
         self.current_zone = None
@@ -49,12 +46,29 @@ class Game:
     def set_current_zone(self, zone_name):
         self.current_zone_name = zone_name
         self.zone = self.zones[self.current_zone_name]
-        self.map = Map(self.zone)
+        self.map = core.Map(self.zone)
         self.npcs = self.zone.npcs
 
     def step(self, dt):
         for npc in self.npcs:
             npc.step(dt)
 
-    def load_pixies(self):
-        pass
+    def handle_inputs(self, pressed_keys):
+        if self.mode == Modes.MAIN_MENU:
+            if pressed_keys[K_RETURN]:
+                print("potato")
+                self.mode = Modes.OVERWORLD
+        if self.mode == Modes.OVERWORLD:
+            if pressed_keys[K_UP]:
+                self.player.move_up(self.map, self.npcs)
+            elif pressed_keys[K_DOWN]:
+                self.player.move_down(self.map, self.npcs)
+            elif pressed_keys[K_LEFT]:
+                self.player.move_left(self.map, self.npcs)
+            elif pressed_keys[K_RIGHT]:
+                self.player.move_right(self.map, self.npcs)
+            elif pressed_keys[K_p]:
+                self.render_mode == Modes.PARTY
+        elif self.mode == Modes.PARTY:
+            if pressed_keys[K_ESCAPE]:
+                self.render_mode == Modes.OVERWORLD

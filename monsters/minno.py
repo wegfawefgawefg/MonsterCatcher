@@ -1,8 +1,6 @@
-from core import Monster
-import moves
-import pixies
+import core
 
-class Minno(Monster):
+class Minno(core.Monster):
 	def __init__(self) -> None:
 		self.name = "Minno"
 		self.hp=5
@@ -13,7 +11,7 @@ class Minno(Monster):
 		self.speed=5
 		self.xp_curve=5
 		self.xp_yield=1
-		self.can_learn = set(moves.DrinkCoffee)
-		self.learn_set = {0: moves.Nibble, 1: moves.Nibble}
+		self.can_learn = set(core.moves.DrinkCoffee)
+		self.learn_set = {0: core.moves.Nibble, 1: core.moves.Nibble}
 
-		self.pixie = pixies.monster.Minno
+		self.pixie = core.pixies.monster.Minno
