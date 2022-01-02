@@ -27,9 +27,9 @@ class BigBlank(core.Map):
         height = len(tile_grid)
 
         npcs = []
-        #for i in range(5):
-        #    npcs.append(Greeter(i+1, i+2))
-        #    npcs.append(CCGreeter(i+2, i+2))
+        for i in range(5):
+            npcs.append(Greeter(i+1, i+2))
+            npcs.append(CCGreeter(i+2, i+2))
 
         super().__init__(name, width, height, tile_grid, npcs)
 

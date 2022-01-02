@@ -18,7 +18,8 @@ from pygame.locals import (
     QUIT,
     K_RETURN,
     K_t,
-    K_i
+    K_i,
+    K_s,
 )
 
 class Modes(Enum):
@@ -39,7 +40,6 @@ class Game:
         self.mode = Modes.MAIN_MENU
 
         self.player = core.Player()
-        #self.party = Party()
 
         self.maps = {}
 
@@ -50,6 +50,7 @@ class Game:
 
         self.selected_inventory_item_index = 0
         self.selected_party_monster_index = 0
+        self.selected_shop_item_index = 0
 
     def add_map(self, map):
         if map.name in self.maps:
@@ -92,10 +93,10 @@ class Game:
             elif pressed_keys[K_p]:
                 self.mode = Modes.PARTY
                 self.button_cooldown = Game.BUTTON_COOLDOWN
-        elif self.mode == Modes.PARTY:
-            if pressed_keys[K_ESCAPE]:
-                self.mode = Modes.OVERWORLD
-                self.button_cooldown = Game.BUTTON_COOLDOWN
+            #elif pressed_keys[K_s]:
+            #    self.mode = Modes.SHOP
+            #    self.selected_shop_item_index = 0
+            #    self.button_cooldown = Game.BUTTON_COOLDOWN
         elif self.mode == Modes.INVENTORY:
             if pressed_keys[K_ESCAPE] or pressed_keys[K_i]:
                 self.mode = Modes.OVERWORLD
@@ -124,4 +125,20 @@ class Game:
                 if self.selected_party_monster_index >= len(self.player.monsters):
                     self.selected_party_monster_index = 0
                 self.button_cooldown = Game.BUTTON_COOLDOWN
-                
+        elif self.mode == Modes.SHOP:
+            if pressed_keys[K_ESCAPE]:
+                self.mode = Modes.OVERWORLD
+                self.button_cooldown = Game.BUTTON_COOLDOWN
+            if pressed_keys[K_UP]:
+                self.selected_shop_item_index -= 1
+                if self.selected_shop_item_index < 0:
+                    self.selected_shop_item_index = len(self.player.inventory) - 1
+                self.button_cooldown = Game.BUTTON_COOLDOWN
+            elif pressed_keys[K_DOWN]:
+                self.selected_shop_item_index += 1
+                if self.selected_shop_item_index >= len(self.player.inventory):
+                    self.selected_shop_item_index = 0
+                self.button_cooldown = Game.BUTTON_COOLDOWN
+            elif pressed_keys[K_0]:
+                self.player.buy_item(self.player.inventory[self.selected_shop_item_index])
+                self.button_cooldown = Game.BUTTON_COOLDOWN

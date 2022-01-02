@@ -12,3 +12,4 @@ from .pixie import Pixie
 from .player import Player
 from .stats import Stats
 from .tile import Tile
+from .item import Item

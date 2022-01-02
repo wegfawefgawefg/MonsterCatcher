@@ -4,8 +4,8 @@ class Character:
     def __init__(self, x, y, motion, pixie) -> None:
         self.x = x
         self.y = y
-        self.inventory = ["potato", "salve", "repel", "gun", "sword", "shield", "dog", "cow", "cat", "nipple"]
-        self.monsters = ["Gassy", "Giraffe", "Bird", "Penguin"]
+        self.inventory = []
+        self.monsters = []
         self.pixie = pixie
         self.render_state = "facing_down"
         self.motion = motion

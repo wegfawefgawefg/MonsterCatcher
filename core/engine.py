@@ -6,7 +6,7 @@ class Engine:
     #BUFFER_SIZE = (10, 9)
     BUFFER_SIZE = (10, 9)
     TILE_SIZE = 16
-    SCALE = 3
+    SCALE = 5
 
     def __init__(self, game):
         self.game = game
@@ -57,19 +57,26 @@ class Engine:
     def render_inventory(self):
         self.screen.blit(self.game.font.render("~Pack~", 1, (255, 255, 255)), (0, 0))
         num_displayable_items = self.tile_buffer.height - 1
-        #displayable_items = self.game.player.inventory[self.game.selected_inventory_item_index:self.game.selected_inventory_item_index + num_displayable_items]
-        selection_pos = min(num_displayable_items, self.game.selected_inventory_item_index)
-        if selection_pos < num_displayable_items:
-            displayable_items = self.game.player.inventory[:num_displayable_items]
-        else:
-            displayable_items = self.game.player.inventory[selection_pos-num_displayable_items:selection_pos]
-        for i, item in enumerate(displayable_items):
+        items = self.game.player.inventory[self.game.selected_inventory_item_index:self.game.selected_inventory_item_index+num_displayable_items]
+        for i, item in enumerate(items):
             x = 0
             y = (i+1)*Engine.TILE_SIZE
-            if i == selection_pos:
+            if i == 0:
                 x = Engine.TILE_SIZE
                 self.screen.blit(self.game.font.render(">", 1, (255, 255, 255)), (0, y))
             self.screen.blit(self.game.font.render(item, 1, (255, 255, 255)), (x, y))
+
+    #def render_shop(self):
+    #    self.screen.blit(self.game.font.render("~Shop~", 1, (255, 255, 255)), (0, 0))
+    #    num_displayable_items = self.tile_buffer.height - 1
+    #    items = self.game.active_shop.items[self.game.selected_shop_item_index:self.game.selected_shop_item_index+num_displayable_items]
+    #    for i, item in enumerate(items):
+    #        x = 0
+    #        y = (i+1)*Engine.TILE_SIZE
+    #        if i == 0:
+    #            x = Engine.TILE_SIZE
+    #            self.screen.blit(self.game.font.render(">", 1, (255, 255, 255)), (0, y))
+    #        self.screen.blit(self.game.font.render(item, 1, (255, 255, 255)), (x, y))
 
     def render_party(self):
         self.screen.blit(self.game.font.render("~Monsters~", 1, (255, 255, 255)), (0, 0))
@@ -93,8 +100,8 @@ class Engine:
             self.render_main_menu()
         elif game.mode == core.Modes.PARTY:
             self.render_party()
-        #elif game.mode == core.Modes.SHOP:
-        #    self.render_shop()
+        elif game.mode == core.Modes.SHOP:
+            self.render_shop()
         elif game.mode == core.Modes.INVENTORY:
             self.render_inventory()
         #elif game.mode == core.Modes.BATTLE:
