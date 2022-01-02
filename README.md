@@ -7,9 +7,6 @@ an easily moddable game engine for a certain type of game
 - Inventory
 - Party
 
-# Engine Features
-- Scene Graph
-
 # Todo
 - time triggers
 - position triggers
