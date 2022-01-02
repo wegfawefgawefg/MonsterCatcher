@@ -1,5 +1,5 @@
-# MonsterCatcher
-an easily moddable game engine for a certain type of game
+# Monster Catcher
+A very easily moddable game engine for a certain type of monster catching game
 
 # Game Features
 - Basic Movement
