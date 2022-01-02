@@ -1,5 +1,5 @@
 class Item:
-    def __init__(self, name: str, description: str, value: int) -> None:
+    def __init__(self, name, description, value) -> None:
         self.name = name
         self.description = description
         self.value = value
@@ -15,5 +15,3 @@ class Item:
 
     def pick_up(self, character):
         print(f"{character.name} picked up {self.name}")
-
-

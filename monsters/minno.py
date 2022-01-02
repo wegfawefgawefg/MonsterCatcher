@@ -1,4 +1,6 @@
 import core
+import moves
+import pixies
 
 class Minno(core.Monster):
     def __init__(self) -> None:
@@ -11,10 +13,10 @@ class Minno(core.Monster):
         self.speed=5
         self.xp_curve=5
         self.xp_yield=1
-        self.can_learn = set(core.moves.DrinkCoffee)
-        self.learn_set = {0: core.moves.Nibble, 1: core.moves.Nibble}
+        self.can_learn = set(moves.DrinkCoffee)
+        self.learn_set = {0: moves.Nibble, 1: moves.Nibble}
 
-        self.pixie = core.pixies.monster.Minno
+        self.pixie = pixies.monster.Minno
 
     def __repr__(self) -> str:
         return self.name

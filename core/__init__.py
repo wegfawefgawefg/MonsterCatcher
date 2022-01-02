@@ -4,6 +4,7 @@ from .engine import Engine
 from .game import Game, Modes
 from .map import Map
 from .monster import Monster
+from .item import Item
 from .motion import Motion
 from .move import Move
 from .tile_buffer import TileBuffer
@@ -12,4 +13,3 @@ from .pixie import Pixie
 from .player import Player
 from .stats import Stats
 from .tile import Tile
-from .item import Item
