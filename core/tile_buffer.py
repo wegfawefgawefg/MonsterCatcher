@@ -1,14 +1,16 @@
-class OverworldBuffer:
-    def __init__(self) -> None:
-        self.height = 9
-        self.width = 10
+class TileBuffer:
+    def __init__(self, width, height) -> None:
+        self.width = width
+        self.height = height
         self.buffer = []
-        for y in range(self.height):
+        for _ in range(self.height):
             row = []
-            for x in range(self.width):
+            for _ in range(self.width):
                 row.append(" ")
             self.buffer.append(row)
-        print(f"overworld_dims {len(self.buffer)} {len(self.buffer[0])}")
+
+    def as_lines(self):
+        return ["".join(row) for row in self.buffer]
 
     def __repr__(self):
         row_strings = []

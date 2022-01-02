@@ -6,10 +6,9 @@ from .map import Map
 from .monster import Monster
 from .motion import Motion
 from .move import Move
-from .overworld_buffer import OverworldBuffer
+from .tile_buffer import TileBuffer
 from .party import Party
 from .pixie import Pixie
 from .player import Player
 from .stats import Stats
 from .tile import Tile
-from .zone import Zone

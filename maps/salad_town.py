@@ -2,8 +2,9 @@ import core
 import pixies
 from tiles import *
 
-class SaladTown(core.Zone):
+class SaladTown(core.Map):
     def __init__(self) -> None:
+        name = "salad_town"
         tile_grid = [
             [Rock(), Rock(), Rock(), Rock(), Rock(), Rock(), Rock(), Rock(), Rock(), Rock(), Rock(), Rock(), Rock(), Rock(), Rock(), Rock()],
             [Rock(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Rock()],
@@ -30,7 +31,7 @@ class SaladTown(core.Zone):
             npcs.append(Greeter(i+1, i+2))
             npcs.append(CCGreeter(i+2, i+2))
 
-        super().__init__(width, height, tile_grid, npcs)
+        super().__init__(name, width, height, tile_grid, npcs)
 
 class Greeter(core.Character):
     def __init__(self, x, y) -> None:
