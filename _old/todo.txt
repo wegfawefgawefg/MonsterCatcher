@@ -6,6 +6,5 @@ battle options
 status effects
 restoring mon stuff
 
-
 teach move
 check stat
