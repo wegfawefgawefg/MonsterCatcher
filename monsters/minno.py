@@ -13,7 +13,7 @@ class Minno(core.Monster):
         self.speed=5
         self.xp_curve=5
         self.xp_yield=1
-        self.can_learn = set(moves.DrinkCoffee)
+        self.can_learn = set([moves.DrinkCoffee])
         self.learn_set = {0: moves.Nibble, 1: moves.Nibble}
 
         self.pixie = pixies.monster.Minno

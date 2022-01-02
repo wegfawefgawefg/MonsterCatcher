@@ -1,5 +1,3 @@
-from .pixie import Pixie
-
 class Monster:
     def __init__(self, name, stats, can_learn, learn_set):
         self.name = name

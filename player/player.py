@@ -5,10 +5,7 @@ import items
 
 class Player(core.Character):
     def __init__(self) -> None:
-        self.x = 4
-        self.y = 4
-        self.motion = "static"
-        self.pixie = pixies.Player()
+        super().__init__(x=4, y=4, motion=core.Motion(), pixie=pixies.Player())
         self.monsters = [
             monsters.Minno(),
             monsters.Minno(),

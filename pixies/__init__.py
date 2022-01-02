@@ -1,3 +1,3 @@
 from .player import Player
-import monster
-import npc
+from .monster import *
+from .npc import *

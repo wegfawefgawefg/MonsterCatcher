@@ -3,6 +3,7 @@ from os import system, name
 import pygame # just for controls
 
 import core
+from player import Player
 import maps
 import tiles
 
@@ -25,39 +26,25 @@ from pygame.locals import (
 FRAME_RATE = 60
 
 if __name__ == "__main__":
-    PLAYER_OFFSET_X = 4
-    PLAYER_OFFSET_Y = 4
-    
     pygame.init()
-
-    game = core.Game()
-    engine = core.Engine(game)
-    #game.add_map(maps.SaladTown())
-    #game.set_current_map("salad_town")
+    game = core.Game(engine=core.Engine())
+    game.player = Player()
     game.add_map(maps.BigBlank())
     game.set_current_map("big_blank")
 
     clock = pygame.time.Clock()
-    running = True
-    while running:
+    while game.running:
         dt = clock.tick(FRAME_RATE)
         for event in pygame.event.get():
             if event.type == KEYDOWN:
                 if event.key == K_q:
-                    running = False
+                    game.quit()
             elif event.type == QUIT:
-                running = False
+                game.quit()
 
-        pressed_keys =  pygame.key.get_pressed()
-        game.handle_inputs(pressed_keys, dt)
-            
-        engine.cam.set_pos(game.player.x - PLAYER_OFFSET_X, game.player.y - PLAYER_OFFSET_Y)
-        game.step(dt)
-        engine.render(game)
+        pressed_keys = pygame.key.get_pressed()
+        game.step(dt, pressed_keys)
+        game.render()
         
-        #print(f"cam: {cam.rect.x} {cam.rect.y}")
-        #print(f"player: {game.player.x} {game.player.y}")
-        
-
     pygame.quit()
 

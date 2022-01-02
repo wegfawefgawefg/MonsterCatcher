@@ -1,11 +1,7 @@
 from os import system, name
 from time import sleep
-from enum import Enum
 
 from pygame.constants import K_0
-
-import core
-
 from pygame.locals import (
     K_UP,
     K_DOWN,
@@ -22,27 +18,20 @@ from pygame.locals import (
     K_s,
 )
 
-class Modes(Enum):
-    OVERWORLD = 1
-    PARTY = 2
-    MAIN_MENU = 3
-    INVENTORY = 4
-    BATTLE = 5
-    SHOP = 6
+import core
 
 class Game:
     BUTTON_COOLDOWN = 100
 
-    def __init__(self) -> None:
+    def __init__(self, engine=None) -> None:
+        self.running = True
+        self.engine = engine
         self.pixies = {}
         self.monsters = {}
-        self.mode = "char"
-        self.mode = Modes.MAIN_MENU
-
-        self.player = core.Player()
-
         self.maps = {}
 
+        self.scene = core.MainMenu(self)
+        self.player = None
         self.map = None
         self.npcs = None
 
@@ -51,6 +40,12 @@ class Game:
         self.selected_inventory_item_index = 0
         self.selected_party_monster_index = 0
         self.selected_shop_item_index = 0
+
+    def buttons_on_cooldown(self):
+        return self.button_cooldown > 0
+
+    def start_button_cooldown(self):
+        self.button_cooldown = Game.BUTTON_COOLDOWN
 
     def add_map(self, map):
         if map.name in self.maps:
@@ -61,84 +56,23 @@ class Game:
         self.map = self.maps[map_name]
         self.npcs = self.map.npcs
 
-    def step(self, dt):
-        for npc in self.npcs:
-            npc.step(dt)
-
-    def handle_inputs(self, pressed_keys, dt):
+    def step(self, dt, pressed_keys):
+        if not self.engine:
+            raise Exception("Engine not set")
+        if not self.player:
+            raise Exception("Player not set")
+        if not self.scene:
+            raise Exception("No active scenes...")
         if self.button_cooldown > 0:
             self.button_cooldown -= dt
             return
-        if self.mode == Modes.MAIN_MENU:
-            if pressed_keys[K_RETURN]:
-                self.mode = Modes.OVERWORLD
-                self.button_cooldown = Game.BUTTON_COOLDOWN
-        if self.mode == Modes.OVERWORLD:
-            if pressed_keys[K_i]:
-                self.mode = Modes.INVENTORY
-                self.selected_inventory_item_index = 0
-                self.button_cooldown = Game.BUTTON_COOLDOWN
-            if pressed_keys[K_UP]:
-                self.player.move_up(self.map, self.npcs)
-                self.button_cooldown = Game.BUTTON_COOLDOWN
-            elif pressed_keys[K_DOWN]:
-                self.player.move_down(self.map, self.npcs)
-                self.button_cooldown = Game.BUTTON_COOLDOWN
-            elif pressed_keys[K_LEFT]:
-                self.player.move_left(self.map, self.npcs)
-                self.button_cooldown = Game.BUTTON_COOLDOWN
-            elif pressed_keys[K_RIGHT]:
-                self.player.move_right(self.map, self.npcs)
-                self.button_cooldown = Game.BUTTON_COOLDOWN
-            elif pressed_keys[K_p]:
-                self.mode = Modes.PARTY
-                self.button_cooldown = Game.BUTTON_COOLDOWN
-            #elif pressed_keys[K_s]:
-            #    self.mode = Modes.SHOP
-            #    self.selected_shop_item_index = 0
-            #    self.button_cooldown = Game.BUTTON_COOLDOWN
-        elif self.mode == Modes.INVENTORY:
-            if pressed_keys[K_ESCAPE] or pressed_keys[K_i]:
-                self.mode = Modes.OVERWORLD
-                self.button_cooldown = Game.BUTTON_COOLDOWN
-            if pressed_keys[K_UP]:
-                self.selected_inventory_item_index -= 1
-                if self.selected_inventory_item_index < 0:
-                    self.selected_inventory_item_index = len(self.player.inventory) - 1
-                self.button_cooldown = Game.BUTTON_COOLDOWN
-            elif pressed_keys[K_DOWN]:
-                self.selected_inventory_item_index += 1
-                if self.selected_inventory_item_index >= len(self.player.inventory):
-                    self.selected_inventory_item_index = 0
-                self.button_cooldown = Game.BUTTON_COOLDOWN
-        elif self.mode == Modes.PARTY:
-            if pressed_keys[K_ESCAPE] or pressed_keys[K_p]:
-                self.mode = Modes.OVERWORLD
-                self.button_cooldown = Game.BUTTON_COOLDOWN
-            if pressed_keys[K_UP]:
-                self.selected_party_monster_index -= 1
-                if self.selected_party_monster_index < 0:
-                    self.selected_party_monster_index = len(self.player.monsters) - 1
-                self.button_cooldown = Game.BUTTON_COOLDOWN
-            elif pressed_keys[K_DOWN]:
-                self.selected_party_monster_index += 1
-                if self.selected_party_monster_index >= len(self.player.monsters):
-                    self.selected_party_monster_index = 0
-                self.button_cooldown = Game.BUTTON_COOLDOWN
-        elif self.mode == Modes.SHOP:
-            if pressed_keys[K_ESCAPE]:
-                self.mode = Modes.OVERWORLD
-                self.button_cooldown = Game.BUTTON_COOLDOWN
-            if pressed_keys[K_UP]:
-                self.selected_shop_item_index -= 1
-                if self.selected_shop_item_index < 0:
-                    self.selected_shop_item_index = len(self.player.inventory) - 1
-                self.button_cooldown = Game.BUTTON_COOLDOWN
-            elif pressed_keys[K_DOWN]:
-                self.selected_shop_item_index += 1
-                if self.selected_shop_item_index >= len(self.player.inventory):
-                    self.selected_shop_item_index = 0
-                self.button_cooldown = Game.BUTTON_COOLDOWN
-            elif pressed_keys[K_0]:
-                self.player.buy_item(self.player.inventory[self.selected_shop_item_index])
-                self.button_cooldown = Game.BUTTON_COOLDOWN
+        self.scene.step(dt, pressed_keys)
+
+    def render(self):
+        self.engine.clear()
+        self.scene.render()
+        self.engine.flip()
+
+    def quit(self):
+        self.running = False
+        
