@@ -15,9 +15,11 @@ from pygame.locals import (
     K_s,
 )
 
-import core
+from .scene import Scene
+from .inventory import Inventory
+from .party import Party
 
-class Overworld(core.Scene):
+class Overworld(Scene):
     PLAYER_OFFSET_X = 4
     PLAYER_OFFSET_Y = 4
 
@@ -26,11 +28,14 @@ class Overworld(core.Scene):
 
     def step(self, dt, pressed_keys):
         if not self.game.buttons_on_cooldown():
+            if pressed_keys[K_ESCAPE]:
+                self.exit()
+                self.game.start_button_cooldown()
             if pressed_keys[K_i]:
-                self.game.scene = core.Inventory(self.game, parent_scene=self)
+                self.game.scene = Inventory(self.game, parent_scene=self)
                 self.game.start_button_cooldown()
             elif pressed_keys[K_p]:
-                self.game.scene = core.Party(self.game, parent_scene=self)
+                self.game.scene = Party(self.game, parent_scene=self)
                 self.game.start_button_cooldown()
             #elif pressed_keys[K_s]:
             #    self.game.scene = core.Shop(self.game, parent_scene=self)

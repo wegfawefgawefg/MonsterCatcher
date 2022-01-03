@@ -1,5 +1,8 @@
 import core
 import pixies
+import items
+import monsters
+
 from tiles import *
 
 class BigBlank(core.Map):
@@ -39,6 +42,8 @@ class Greeter(core.Character):
         motion = core.Motion("rotating", direction="clockwise")
         pixie = pixies.npc.Greeter()
         super().__init__(x, y, motion, pixie)
+        self.inventory = [items.Potion()]
+        self.monsters = [monsters.Minno()]
 
 class CCGreeter(core.Character):
     def __init__(self, x, y) -> None:

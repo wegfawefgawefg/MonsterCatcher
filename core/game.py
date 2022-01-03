@@ -18,7 +18,7 @@ from pygame.locals import (
     K_s,
 )
 
-import core
+from .scenes.main_menu import MainMenu
 
 class Game:
     BUTTON_COOLDOWN = 100
@@ -30,7 +30,7 @@ class Game:
         self.monsters = {}
         self.maps = {}
 
-        self.scene = core.MainMenu(self)
+        self.scene = MainMenu(self)
         self.player = None
         self.map = None
         self.npcs = None
@@ -76,3 +76,22 @@ class Game:
     def quit(self):
         self.running = False
         
+    #class Target(Enum):
+    #    MONSTER = auto()
+    #    ITEM = auto()
+    #    TILE = auto()
+    #    PLAYER = auto()
+    #    CHARACTER = auto()
+    #    STAT = auto()
+    #    MOVE = auto()
+    #    HOLD = auto()
+    #    NONE = auto()
+
+    def use(self, useable, user, target):
+        useable.use(self, user, target)
+    
+    def use_on_facing(self, useable, user, target):
+        useable.use(self, user, target)
+
+    def give(self, useable, user, target):
+        pass

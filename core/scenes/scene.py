@@ -16,7 +16,7 @@ class Scene:
         self.game = game
         self.parent_scene = parent_scene
 
-    def handle_inputs(self, inputs):
+    def step(self, dt, pressed_keys):
         raise NotImplementedError
 
     def exit(self):

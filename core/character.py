@@ -70,4 +70,3 @@ class Character:
     def move_up(self, map, npcs):
         self.render_state = "facing_up"
         self.move(self.x, self.y - 1, map, npcs)
-

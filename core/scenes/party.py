@@ -7,9 +7,10 @@ from pygame.locals import (
     K_p,
 )
 
-import core
+from .scene import Scene
+from .monster_stats import MonsterStats
 
-class Party(core.Scene):
+class Party(Scene):
     def __init__(self, game, parent_scene):
         super().__init__(game, parent_scene)
         self.selected_monster_index = 0
@@ -31,6 +32,7 @@ class Party(core.Scene):
                 self.game.start_button_cooldown()
             elif pressed_keys[K_RETURN]:
                 print(f"selected {self.game.player.monsters[self.selected_monster_index]}")
+                self.game.scene = MonsterStats(self.game, self, self.game.player.monsters[self.selected_monster_index])
                 self.game.start_button_cooldown()
 
     def render(self):

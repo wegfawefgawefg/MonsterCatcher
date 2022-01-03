@@ -7,12 +7,31 @@ from pygame.locals import (
     K_i,
 )
 
-import core
+from .scene import Scene
 
-class Inventory(core.Scene):
+class Inventory(Scene):
     def __init__(self, game, parent_scene):
         super().__init__(game, parent_scene)
         self.selected_item_index = 0
+
+    #class Target(Enum):
+    #    MONSTER = auto()
+    #    ITEM = auto()
+    #    TILE = auto()
+    #    PLAYER = auto()
+    #    CHARACTER = auto()
+    #    STAT = auto()
+    #    MOVE = auto()
+    #    HOLD = auto()
+    #    NONE = auto()
+
+    def use_item(self, item, user, target):
+        item.use(self, user, target)
+
+    def give_item(self, item, user, target):
+        item.drop(user)
+        target.pick_up(item)
+
 
     def step(self, dt, pressed_keys):
         if not self.game.buttons_on_cooldown():

@@ -3,9 +3,10 @@ from pygame.locals import (
     K_RETURN,
 )
 
-import core
+from .scene import Scene
+from .overworld import Overworld
 
-class MainMenu(core.Scene):
+class MainMenu(Scene):
     def __init__(self, game):
         super().__init__(game)
 
@@ -14,7 +15,7 @@ class MainMenu(core.Scene):
             if pressed_keys[K_RETURN]:
                 self.game.start_button_cooldown()
                 print("Starting game...")
-                self.game.scene = core.Overworld(self.game, parent_scene=self)
+                self.game.scene = Overworld(self.game, parent_scene=self)
 
     def exit(self):
         self.game.quit()
