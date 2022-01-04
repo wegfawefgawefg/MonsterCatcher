@@ -152,6 +152,11 @@ class Engine:
         left_arrow = self.font.render("<", 1, (255, 255, 255))
         self.wigglezoom(left_arrow, (Engine.TILE_SIZE, 0), rspeed=0.0, zspeed=8, zscale=0.1)
 
+    def render_monster(self, monster, pos):
+        asset_name = core.Pixie.ASSET_NAMES[monster.pixie.state]
+        asset = self.assets.monsters[monster.name][asset_name]
+        self.screen.blit(asset, pos)
+
     def render_monster_stats(self):
         monster = self.game.scene.monster
         self.render_menu_title(str(monster))
@@ -167,11 +172,8 @@ class Engine:
             self.screen.blit(txt, (x, y))
 
         # draw monster
-        asset_name = core.Pixie.ASSET_NAMES[self.game.scene.monster.pixie.state]
-        asset = self.assets.monsters[monster.name][asset_name]
-        self.screen.blit(asset, 
+        self.render_monster(monster, 
             (Engine.TILE_SIZE*(Engine.BUFFER_SIZE[0]//2), Engine.TILE_SIZE*(Engine.BUFFER_SIZE[1]//2)))
-
         self.render_using()
 
     def render_monster_moves(self):
@@ -198,6 +200,7 @@ class Engine:
                 self.wigglezoom(txt, (x, y), rspeed=0.0, zspeed=8, zscale=0.05)
             else:
                 self.screen.blit(txt, (x, y))
+            self.render_monster(monster, (Engine.TILE_SIZE*(Engine.BUFFER_SIZE[0]-2), y))
         self.render_using()
 
     def render_main_menu(self):
