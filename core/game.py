@@ -25,7 +25,7 @@ class Game:
 
     def __init__(self, engine=None) -> None:
         self.running = True
-        self.engine = engine
+        self.engine = engine(game=self) if engine else None
         self.pixies = {}
         self.monsters = {}
         self.maps = {}
@@ -34,12 +34,24 @@ class Game:
         self.player = None
         self.map = None
         self.npcs = None
+        self.using = None
 
         self.button_cooldown = 0
 
         self.selected_inventory_item_index = 0
         self.selected_party_monster_index = 0
         self.selected_shop_item_index = 0
+
+    def set_using(self, thing):
+        self.using = thing
+
+    def use(self, item, user, target):
+        item.use(self, user, target)
+    def use_using(self, user, target):
+        if self.using:
+            self.use(self.using, user, target)
+            if self.using.consumable and self.using.quantity <= 0:
+                self.using = None
 
     def buttons_on_cooldown(self):
         return self.button_cooldown > 0
@@ -63,35 +75,21 @@ class Game:
             raise Exception("Player not set")
         if not self.scene:
             raise Exception("No active scenes...")
+        self.dt = dt
         if self.button_cooldown > 0:
             self.button_cooldown -= dt
             return
-        self.scene.step(dt, pressed_keys)
+        self.scene.step(pressed_keys)
 
     def render(self):
+        if not self.engine:
+            return
         self.engine.clear()
         self.scene.render()
         self.engine.flip()
 
     def quit(self):
         self.running = False
-        
-    #class Target(Enum):
-    #    MONSTER = auto()
-    #    ITEM = auto()
-    #    TILE = auto()
-    #    PLAYER = auto()
-    #    CHARACTER = auto()
-    #    STAT = auto()
-    #    MOVE = auto()
-    #    HOLD = auto()
-    #    NONE = auto()
 
-    def use(self, useable, user, target):
-        useable.use(self, user, target)
+
     
-    def use_on_facing(self, useable, user, target):
-        useable.use(self, user, target)
-
-    def give(self, useable, user, target):
-        pass

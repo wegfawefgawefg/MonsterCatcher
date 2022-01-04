@@ -2,13 +2,13 @@
 #       learn_set={0: moves.Nibble, 1: moves.Shmove})
 
 class Monster:
-    def __init__(self, name, stats, can_learn, learn_set, level=None, moves=None):
+    def __init__(self, name, stats, can_learn, learn_set, pixie, level=None, moves=None):
         self.hp = stats.hp
         self.name = name
         self.stats = stats
         self.learn_set = learn_set
         self.can_learn = can_learn.union(learn_set.values())
-        self.pixie = None
+        self.pixie = pixie
         self.set_level(0 or level)
         self.moves = moves or self.get_moves()
         

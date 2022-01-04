@@ -1,4 +1,4 @@
-from pygame.constants import K_0
+from pygame.constants import K_0, K_ESCAPE
 from pygame.locals import (
     K_RETURN,
 )
@@ -8,17 +8,17 @@ from .overworld import Overworld
 
 class MainMenu(Scene):
     def __init__(self, game):
-        super().__init__(game)
+        commands = {
+            K_RETURN:self.start_game,
+            K_ESCAPE:self.exit,
+        }
+        super().__init__(game, commands)
 
-    def step(self, dt, pressed_keys):
-        if not self.game.buttons_on_cooldown():
-            if pressed_keys[K_RETURN]:
-                self.game.start_button_cooldown()
-                print("Starting game...")
-                self.game.scene = Overworld(self.game, parent_scene=self)
+    def start_game(self):
+        self.game.scene = Overworld(self.game, parent_scene=self)
 
     def exit(self):
         self.game.quit()
 
     def render(self):
-        self.game.engine.render_main_menu(self.game, self)
+        self.game.engine.render_main_menu()

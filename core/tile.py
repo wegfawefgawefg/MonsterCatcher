@@ -1,9 +1,10 @@
+from core import Pixie
+
 class Tile:
-    def __init__(self, name, allows, char, sprite=None) -> None:
+    def __init__(self, name, allows, pixie=Pixie()) -> None:
         self.name = name
         self.allows = allows
-        self.char = char
-        self.sprite = None
+        self.pixie = pixie
 
     def __repr__(self):
         return f"{self.name} tile"
