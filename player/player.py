@@ -10,5 +10,7 @@ class Player(core.Character):
             monsters.Minno(),
             monsters.Minno()
         ]
-        potions = [items.Potion()]*3
-        self.inventory.add(potions)
+        self.inventory.add(items.Potion())
+        self.inventory.add(items.Potion())
+        self.inventory.add(items.Potion())
+        self.inventory.add(items.JAndJ())

@@ -10,7 +10,7 @@ class Monster:
         self.can_learn = can_learn.union(learn_set.values())
         self.pixie = pixie
         self.set_level(0 or level)
-        self.moves = moves or self.get_moves()
+        self.moves = moves or self.fresh_moves()
         
     @property
     def level(self):
@@ -19,6 +19,5 @@ class Monster:
     def set_level(self, level):
         self.xp = level * self.stats.xp_curve
 
-    def get_moves(self):
+    def fresh_moves(self):
         return [move for lvl, move in self.learn_set.items() if lvl <= self.level]
-
