@@ -3,6 +3,7 @@ from os import system, name
 import pygame # just for controls
 
 import core
+import engine
 from player import Player
 import maps
 import tiles
@@ -27,7 +28,7 @@ FRAME_RATE = 60
 
 if __name__ == "__main__":
     pygame.init()
-    game = core.Game(engine=core.Engine)
+    game = core.Game(engine=engine.Engine)
     game.player = Player()
     game.add_map(maps.BigBlank())
     game.set_current_map("big_blank")

@@ -47,7 +47,8 @@ class Pixie:
         States.RIGHT: "right",
     }
 
-    def __init__(self, animation=None, speed=1000) -> None:
+    def __init__(self, animation=None, speed=1000, size=(1.0, 1.0)) -> None:
+        self.size = size
         self.animation = animation
         self.speed = speed
         self.timer = int(random.random() * 1000) if animation else 0
@@ -59,3 +60,6 @@ class Pixie:
             if self.timer < 0:
                 self.timer += self.speed
                 self.state = Pixie.SEQUENCES[self.animation][self.state]
+
+    def set_size(self, size):
+        self.size = (max(0.0, size[0]), max(0.0, size[1]))

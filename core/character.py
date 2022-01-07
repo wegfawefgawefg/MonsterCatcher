@@ -1,4 +1,5 @@
 import random
+import math
 from collections import OrderedDict
 
 from .pixie import Pixie, Animations, States
@@ -47,10 +48,11 @@ class Character:
     def step(self, dt):
         self.pixie.step(dt)
 
-    def move(self, x, y, map, npcs):
+    def move(self, game, x, y):
+        map, npcs = game.map, game.npcs
         #   is new spot on map?
         if not (0 <= x < map.width) or not (0 <= y < map.width):
-                return
+            return
         #   tile collisions
         if not map.tiles[y][x].allows:
             return
@@ -60,18 +62,22 @@ class Character:
             return
         self.x, self.y = x, y
     
-    def move_down(self, map, npcs):
+    def move_down(self, game):
         self.pixie.state = States.DOWN
-        self.move(self.x, self.y + 1, map, npcs)
+        self.move(game, self.x, self.y+1)
 
-    def move_left(self, map, npcs):
+    def move_left(self, game):
         self.pixie.state = States.LEFT
-        self.move(self.x - 1, self.y, map, npcs)
+        self.move(game, self.x-1, self.y)
 
-    def move_right(self, map, npcs):
+    def move_right(self, game):
         self.pixie.state = States.RIGHT
-        self.move(self.x + 1, self.y, map, npcs)
+        self.move(game, self.x+1, self.y)
 
-    def move_up(self, map, npcs):
+    def move_up(self, game):
         self.pixie.state = States.UP
-        self.move(self.x, self.y - 1, map, npcs)
+        self.move(game, self.x, self.y-1)
+
+    def wander(self, game):
+        if random.random() < 0.01:
+            random.choice([self.move_up, self.move_down, self.move_left, self.move_right])(game)

@@ -1,3 +1,6 @@
+import random
+import time 
+
 from pygame.constants import K_0
 from pygame.locals import (
     K_UP,
@@ -33,23 +36,25 @@ class Overworld(Scene):
     def view_party(self):
         from .party import Party
         self.game.scene = Party(self.game, parent_scene=self)
-    def move_up(self):
-        self.game.player.move_up(self.game.map, self.game.npcs)
+    def move_up(self,):
+        self.game.player.move_up(self.game)
     def move_down(self):
-        self.game.player.move_down(self.game.map, self.game.npcs)
+        self.game.player.move_down(self.game)
     def move_left(self):
-        self.game.player.move_left(self.game.map, self.game.npcs)
+        self.game.player.move_left(self.game)
     def move_right(self):
-        self.game.player.move_right(self.game.map, self.game.npcs)
+        self.game.player.move_right(self.game)
 
     def step(self, pressed_keys):
         super().step(pressed_keys)
         for npc in self.game.npcs:
-            npc.step(self.game.dt)
+            npc.wander(self.game)
         self.game.player.step(self.game.dt)
-        self.game.engine.cam.set_pos(
-            self.game.player.x - Overworld.PLAYER_OFFSET_X, 
-            self.game.player.y - Overworld.PLAYER_OFFSET_Y)
+        self.game.engine.cam.set_pos(self.game.player.x, self.game.player.y)
+        #smooth cam will happen later
+        #self.game.engine.cam.set_pos(
+        #    self.game.engine.cam.x + (self.game.player.x - self.game.engine.cam.x) / 4, 
+        #    self.game.engine.cam.y + (self.game.player.y - self.game.engine.cam.y) / 4)
 
     def render(self):
         self.game.engine.render_overworld()

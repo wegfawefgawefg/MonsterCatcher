@@ -76,6 +76,7 @@ class Game:
         if not self.scene:
             raise Exception("No active scenes...")
         self.dt = dt
+        self.dtf = dt / 1000.0
         if self.button_cooldown > 0:
             self.button_cooldown -= dt
             return

@@ -7,28 +7,21 @@ class BigBlank(core.Map):
     def __init__(self) -> None:
         name = "big_blank"
         tile_grid = [
-            [Rock(), Rock(), Rock(), Rock(), Rock(), Rock(), Rock(), Rock(), Rock(), Rock(), Rock(), Rock(), Rock(), Rock(), Rock(), Rock(), Rock(), Rock(), Rock(), Rock(), Rock(), Rock(), Rock(), Rock(), Rock(), Rock(), Rock(), Rock(), Rock(), Rock(), Rock(), Rock(),],
-            [Rock(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Rock()],
-            [Rock(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Rock()],
-            [Rock(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Rock()],
-            [Rock(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Rock()],
-            [Rock(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Rock()],
-            [Rock(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Rock()],
-            [Rock(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Rock()],
-            [Rock(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Rock()],
-            [Rock(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Rock()],
-            [Rock(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Rock()],
-            [Rock(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Rock()],
-            [Rock(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Rock()],
-            [Rock(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Rock()],
-            [Rock(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Rock()],
-            [Rock(), Rock(), Rock(), Rock(), Rock(), Rock(), Rock(), Rock(), Rock(), Rock(), Rock(), Rock(), Rock(), Rock(), Rock(), Rock(), Rock(), Rock(), Rock(), Rock(), Rock(), Rock(), Rock(), Rock(), Rock(), Rock(), Rock(), Rock(), Rock(), Rock(), Rock(), Rock(),],
+            [Rock(), Rock(), Rock(), Rock(), Rock(), Rock(), Rock(),        Rock(),     Rock(),  Rock(),     Rock()],
+            [Rock(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(),  Grass(),    Grass(), Grass(),    Rock()],
+            [Rock(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(),  Grass(),    Grass(), Grass(),    Rock()],
+            [Rock(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(),  Grass(),    Grass(), Grass(),    Rock()],
+            [Rock(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(),  Grass(),    Grass(), Grass(),    Rock()],
+            [Rock(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(),  Grass(),    Grass(), Grass(),    Rock()],
+            [Rock(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(),  Grass(),    Grass(), Grass(),    Rock()],
+            [Rock(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(),  Grass(),    Grass(), Grass(),    Rock()],
+            [Rock(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(),  Grass(),    Grass(), Grass(),    Rock()],
+            [Rock(), Rock(), Rock(), Rock(), Rock(), Rock(), Rock(),        Rock(),     Rock(),  Rock(),     Rock()],
         ]
-        npcs = []
-        for i in range(5):
-            npcs.append(Greeter(i+1, i+2))
-            npcs.append(CCGreeter(i+2, i+2))
-
+        npcs = [
+            Greeter(1, 1),
+            CCGreeter(1, 8)
+        ]
         super().__init__(name, tile_grid, npcs)
 
 class Greeter(core.Character):
