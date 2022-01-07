@@ -136,8 +136,8 @@ class Engine:
         self.screen.blit(blit, pos)
 
     def render_player(self):
-        s = math.sin(time.time()*4.0)*0.2 + 1.0
-        self.game.player.pixie.set_size((s,s))
+        #s = math.sin(time.time()*4.0)*0.2 + 1.0
+        #self.game.player.pixie.set_size((s,s))
         self.render_character(self.game.player, self.w2p((self.game.player.x, self.game.player.y)))
 
     def render_npcs(self):
@@ -149,6 +149,8 @@ class Engine:
         self.render_map()
         self.render_player()
         self.render_npcs()
+        self.render_using()
+
 
     def render_menu_title(self, title):
         txt = self.font.render(title, 1, (255, 255, 255))

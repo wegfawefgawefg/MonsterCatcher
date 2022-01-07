@@ -14,3 +14,6 @@ class Player(core.Character):
         self.inventory.add(items.Potion())
         self.inventory.add(items.Potion())
         self.inventory.add(items.JAndJ())
+        self.inventory.add(items.Teleport())
+        for _ in range(10):
+            self.inventory.add(items.Viagra())

@@ -42,6 +42,17 @@ class Game:
         self.selected_party_monster_index = 0
         self.selected_shop_item_index = 0
 
+        self.effects = []
+
+    def register_effect(self, effect, args):
+        pass
+        #time, duration, effect, args
+        #self.effects.append(())
+
+    #def check_effects():
+    #    for effect in self.effects:
+    #        time
+
     def set_using(self, thing):
         self.using = thing
 

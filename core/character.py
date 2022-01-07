@@ -52,15 +52,16 @@ class Character:
         map, npcs = game.map, game.npcs
         #   is new spot on map?
         if not (0 <= x < map.width) or not (0 <= y < map.width):
-            return
+            return False
         #   tile collisions
         if not map.tiles[y][x].allows:
-            return
+            return False
         #   npc collisions
         npc_already_there = any(npc.x == x and npc.y == y for npc in npcs)
         if npc_already_there:
-            return
+            return False
         self.x, self.y = x, y
+        return True
     
     def move_down(self, game):
         self.pixie.state = States.DOWN

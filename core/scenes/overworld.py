@@ -10,6 +10,7 @@ from pygame.locals import (
     K_p,
     K_i,
     K_q,
+    K_t
 )
 
 from .scene import Scene
@@ -26,9 +27,19 @@ class Overworld(Scene):
             K_UP:self.move_up,
             K_DOWN:self.move_down,
             K_LEFT:self.move_left,
-            K_RIGHT:self.move_right
+            K_RIGHT:self.move_right,
+            K_t:self.use_useing_on_selected,
+
         }
         super().__init__(game, commands, parent_scene)
+
+    @property
+    def selected(self):
+        return self.game.player
+
+    def use_useing_on_selected(self):
+        if self.selected:
+            self.game.use_using(self.game.player, target=self.selected)
 
     def view_inventory(self):
         from .inventory import Inventory
