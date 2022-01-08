@@ -6,6 +6,7 @@ A very easily moddable game engine for a certain type of monster catching game
 - Overworld
 - Inventory
 - Party
+- Items
 
 # Todo
 - time triggers
@@ -19,11 +20,10 @@ A very easily moddable game engine for a certain type of monster catching game
 - battle screen
 - finding wild
 - monster storing box
-- heal mons with item
 - heal mons with npc
 - use item that teaches a move
 - talk to npc that teaches a move
 - teach a move
-- monster viewer (check stats)
+- move viewer
 - shop screen
 - buying things
