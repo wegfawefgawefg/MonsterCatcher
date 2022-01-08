@@ -30,7 +30,7 @@ class LeftField(core.Map):
 class Greeter(core.Character):
     def __init__(self, x, y) -> None:
         super().__init__("greeter", x, y, 
-            pixie=Pixie(animation=Animations.CLOCKWISE))
+            pixie=Pixie(animation=Animations.CLOCKWISE, size=(0.5, 0.5)))
 
 class CCGreeter(core.Character):
     def __init__(self, x, y) -> None:
