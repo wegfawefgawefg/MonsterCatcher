@@ -61,6 +61,7 @@ class Overworld(Scene):
         for npc in self.game.npcs:
             npc.wander(self.game)
         self.game.player.step(self.game.dt)
+        self.game.map.check_warps()
         self.game.engine.cam.set_pos(self.game.player.x, self.game.player.y)
         #smooth cam will happen later
         #self.game.engine.cam.set_pos(

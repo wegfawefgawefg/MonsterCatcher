@@ -195,7 +195,8 @@ class Engine:
         pos = (self.right_align(txt)[0], Engine.TILE_SIZE*1)
         self.screen.blit(txt, pos)
 
-        txt = "HP: " + str(monster.hp) + "/" + str(monster.stats.hp)
+        #txt = "HP: " + str(monster.hp) + "/" + str(monster.stats.hp)
+        txt = f"HP: {monster.hp:.0f}/{monster.stats.hp:.0f}"
         txt = self.font.render(txt, 1, (255, 255, 255))
         pos = (self.right_align(txt)[0], Engine.TILE_SIZE*2)
         if self.game.scene.selected == core.Stats.STATS.HP:

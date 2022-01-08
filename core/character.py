@@ -1,49 +1,28 @@
 import random
+from enum import Enum, auto
 import math
-from collections import OrderedDict
 
 from .pixie import Pixie, Animations, States
+from .inventory import Inventory
 
-class Inventory:
-    def __init__(self):
-        self.items = OrderedDict()
-
-    def __getitem__(self, index):
-        return list(self.items)[index]
-
-    def __iter__(self):
-        return iter(self.items.values())
-
-    def __len__(self):
-        return len(self.items)
-
-    def add(self, item_or_items):
-        if isinstance(item_or_items, list):
-            for item in item_or_items:
-                self.add(item)
-        else:
-            item = item_or_items
-            if item.consumable and item in self.items:
-                self.items[item].quantity += 1
-            else:
-                self.items[item] = item
-
-    def remove(self, item):
-        if item.consumable and item.name in self.items:
-            self.items[item].quantity -= 1
-            if self.items[item].quantity <= 0:
-                del self.items[item]
-        else:
-            del self.items[item]
+class Directions(Enum):
+    DOWN = auto()
+    LEFT = auto()
+    RIGHT = auto()
+    UP = auto()
 
 class Character:
     def __init__(self, name, x, y, pixie=Pixie()) -> None:
         self.name = name
         self.x, self.y = x, y
         self.pixie = pixie
+        self.facing = Directions.DOWN
 
         self.inventory = Inventory()
         self.monsters = []
+
+    def __repr__(self) -> str:
+        return f"{self.name}"
 
     def step(self, dt):
         self.pixie.step(dt)
@@ -60,22 +39,28 @@ class Character:
         npc_already_there = any(npc.x == x and npc.y == y for npc in npcs)
         if npc_already_there:
             return False
+        if game.player.x == x and game.player.y == y:
+            return False
         self.x, self.y = x, y
         return True
     
     def move_down(self, game):
+        self.facing = Directions.DOWN
         self.pixie.state = States.DOWN
         self.move(game, self.x, self.y+1)
 
     def move_left(self, game):
+        self.facing = Directions.LEFT
         self.pixie.state = States.LEFT
         self.move(game, self.x-1, self.y)
 
     def move_right(self, game):
+        self.facing = Directions.RIGHT
         self.pixie.state = States.RIGHT
         self.move(game, self.x+1, self.y)
 
     def move_up(self, game):
+        self.facing = Directions.UP
         self.pixie.state = States.UP
         self.move(game, self.x, self.y-1)
 

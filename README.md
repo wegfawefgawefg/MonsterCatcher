@@ -7,8 +7,12 @@ A very easily moddable game engine for a certain type of monster catching game
 - Inventory
 - Party
 - Items
+- Persistent Effects
+- Zone Loading
 
 # Todo
+- selection of tiles
+- npc events
 - time triggers
 - position triggers
 - monster uses move

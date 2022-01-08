@@ -30,6 +30,7 @@ class Game:
         self.monsters = {}
         self.maps = {}
 
+        self.time = 0
         self.scene = MainMenu(self)
         self.player = None
         self.map = None
@@ -44,14 +45,15 @@ class Game:
 
         self.effects = []
 
-    def register_effect(self, effect, args):
-        pass
-        #time, duration, effect, args
-        #self.effects.append(())
+    def advance_clock(self):
+        self.time += self.dtf
 
-    #def check_effects():
-    #    for effect in self.effects:
-    #        time
+    def register_effect(self, effect):
+        effect.start()
+        self.effects.append(effect)
+
+    def check_effects(self):
+        self.effects = [effect for effect in self.effects if effect.step()]
 
     def set_using(self, thing):
         self.using = thing
@@ -70,14 +72,12 @@ class Game:
     def start_button_cooldown(self):
         self.button_cooldown = Game.BUTTON_COOLDOWN
 
-    def add_map(self, map):
-        if map.name in self.maps:
-            raise Exception(f"Map {map.name} already exists...")
-        self.maps[map.name] = map
-
-    def set_current_map(self, map_name):
-        self.map = self.maps[map_name]
+    def set_current_map(self, map):
+        if self.map and self.map.name == map.name:
+            return
+        self.map = map
         self.npcs = self.map.npcs
+        self.warps = self.map.warps
 
     def step(self, dt, pressed_keys):
         if not self.engine:
@@ -92,6 +92,8 @@ class Game:
             self.button_cooldown -= dt
             return
         self.scene.step(pressed_keys)
+        self.check_effects()
+        self.advance_clock()
 
     def render(self):
         if not self.engine:

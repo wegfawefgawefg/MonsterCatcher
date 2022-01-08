@@ -1,17 +1,18 @@
 import core
-from core import Pixie, Animations, States
+from core import Pixie, Animations, States, Warp
 
 from tiles import *
+import maps
 
 class BigBlank(core.Map):
-    def __init__(self) -> None:
+    def __init__(self, game) -> None:
         name = "big_blank"
         tile_grid = [
             [Rock(), Rock(), Rock(), Rock(), Rock(), Rock(), Rock(),        Rock(),     Rock(),  Rock(),     Rock()],
             [Rock(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(),  Grass(),    Grass(), Grass(),    Rock()],
             [Rock(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(),  Grass(),    Grass(), Grass(),    Rock()],
             [Rock(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(),  Grass(),    Grass(), Grass(),    Rock()],
-            [Rock(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(),  Grass(),    Grass(), Grass(),    Rock()],
+            [Grass(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(),  Grass(),    Grass(), Grass(),    Rock()],
             [Rock(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(),  Grass(),    Grass(), Grass(),    Rock()],
             [Rock(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(),  Grass(),    Grass(), Grass(),    Rock()],
             [Rock(), Grass(), Grass(), Grass(), Grass(), Grass(), Grass(),  Grass(),    Grass(), Grass(),    Rock()],
@@ -22,7 +23,8 @@ class BigBlank(core.Map):
             Greeter(1, 1),
             CCGreeter(1, 8)
         ]
-        super().__init__(name, tile_grid, npcs)
+        warps = [Warp(game, pos=(0, 4), destination_map_constructor=maps.LeftField, destination=(8, 4))]
+        super().__init__(game, name, tile_grid, npcs, warps)
 
 class Greeter(core.Character):
     def __init__(self, x, y) -> None:

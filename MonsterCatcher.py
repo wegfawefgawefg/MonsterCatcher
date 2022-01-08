@@ -30,8 +30,7 @@ if __name__ == "__main__":
     pygame.init()
     game = core.Game(engine=engine.Engine)
     game.player = Player()
-    game.add_map(maps.BigBlank())
-    game.set_current_map("big_blank")
+    game.set_current_map(maps.BigBlank(game))
 
     clock = pygame.time.Clock()
     running = True

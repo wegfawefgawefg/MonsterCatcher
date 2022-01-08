@@ -8,9 +8,9 @@ class Teleport(core.Item):
 
     def use(self, game, user, target):
         if self.can_use_on(game, user, target):
-            xmod, ymod = random.randint(0, game.map.width), random.randint(0, game.map.height)
+            xmod, ymod = -100, -100
             while not game.player.move(game, xmod, ymod):
-                pass
+                xmod, ymod = random.randint(0, game.map.width), random.randint(0, game.map.height)
             user.inventory.remove(self)
             self.announce_use(user, target)
 
