@@ -31,3 +31,7 @@ A very easily moddable game engine for a certain type of monster catching game
 - move viewer
 - shop screen
 - buying things
+- announcement queue
+- keyboard bindings
+- save/load
+- options menu

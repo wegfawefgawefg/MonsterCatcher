@@ -25,6 +25,18 @@ class Cam:
     def pos(self):
         return self.x, self.y
 
+    def bound_by_map(self, map):
+        if not map.lock_cam_in:
+            return
+        if self.rect.tl[0] < 0:
+            self.set_pos(self.rect.width//2, self.y)
+        if self.rect.tl[1] < 0:
+            self.set_pos(self.x, self.rect.height//2+1)
+        if self.rect.br[0] > map.width-1:
+            self.set_pos(map.width - self.rect.width//2-1, self.y)
+        if self.rect.br[1] > map.height:
+            self.set_pos(self.x, map.height - self.rect.height//2-1)
+
     def set_pos(self, x: float, y: float):
         self.x, self.y = x, y
         self.rect.set_center((x, y))

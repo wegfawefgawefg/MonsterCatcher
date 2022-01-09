@@ -1,31 +1,23 @@
 import core
-from core import Pixie, Animations, States, Warp
+from core import Pixie, Animations, States, Warp, Grid
 import maps
 
 from tiles import *
 
-class LeftField(core.Map):
+class Cave(core.Map):
     def __init__(self, game) -> None:
         name = "left_field"
-        tile_grid = []
-        height = 10
-        width = 10
-        for y in range(height):
-            row = []
-            for x in range(width):
-                if x == 0 or x == width - 1 or y == 0 or y == height - 1:
-                    row.append(Rock())
-                else:
-                    row.append(Grass())
-            tile_grid.append(row)
-        tile_grid[4][9] = Grass()
-
+        grid = Grid(width=10, height=10)
+        grid.fill(0, Grass)
+        grid.fill_hollow_rect(depth=1, width=10, height=10, pos=(0, 0), tile=Rock)
+        grid.set_bottom(9, 4, Grass)
+        grid.set_top(9, 4, None)
         npcs = [
             Greeter(1, 1),
             CCGreeter(1, 8)
         ]
         warps = [Warp(game, pos=(9, 4), destination_map_constructor=maps.BigBlank, destination=(1, 4))]
-        super().__init__(game, name, tile_grid, npcs, warps)
+        super().__init__(game, name, grid, npcs, warps, lock_cam_in=False)
 
 class Greeter(core.Character):
     def __init__(self, x, y) -> None:

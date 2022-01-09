@@ -30,10 +30,14 @@ class Character:
     def move(self, game, x, y):
         map, npcs = game.map, game.npcs
         #   is new spot on map?
-        if not (0 <= x < map.width) or not (0 <= y < map.width):
+        if x < 0 or x >= map.width or y < 0 or y >= map.height:
             return False
         #   tile collisions
-        if not map.tiles[y][x].allows:
+        bottom_tile = map.grid.get(0, x, y)
+        if bottom_tile and not bottom_tile.allows:
+            return False
+        top_tile = map.grid.get(1, x, y)
+        if top_tile and not top_tile.allows:
             return False
         #   npc collisions
         npc_already_there = any(npc.x == x and npc.y == y for npc in npcs)

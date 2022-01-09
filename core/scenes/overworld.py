@@ -59,10 +59,12 @@ class Overworld(Scene):
     def step(self, pressed_keys):
         super().step(pressed_keys)
         for npc in self.game.npcs:
+            npc.step(self.game.dt)
             npc.wander(self.game)
         self.game.player.step(self.game.dt)
         self.game.map.check_warps()
         self.game.engine.cam.set_pos(self.game.player.x, self.game.player.y)
+        self.game.engine.cam.bound_by_map(self.game.map)
         #smooth cam will happen later
         #self.game.engine.cam.set_pos(
         #    self.game.engine.cam.x + (self.game.player.x - self.game.engine.cam.x) / 4, 

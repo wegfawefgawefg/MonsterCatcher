@@ -49,8 +49,8 @@ class Engine:
             color = (255, 255, 0)
         elif fps < 45:  # red
             color = (255, 0, 0)
-        txt = self.font.render(str(fps), 1, color)
-        self.screen.blit(txt, (0, 0))
+        txt = self.font.render(str(fps), Engine.SCALE, color)
+        self.window_screen.blit(txt, (0, 0))
 
     def center_surf(self, surface, width=True, height=True):
         return (
@@ -69,12 +69,14 @@ class Engine:
 
     def render_map(self):
         self.tile_surface.fill((0, 0, 0))
-        for y in range(self.cam.rect.height+1):
-            world_y = self.cam.rect.tl[1] + y
-            for x in range(self.cam.rect.width+1):
-                world_x = self.cam.rect.tl[0] + x + 0.5
-                if 0 <= world_x < self.game.map.width and 0 <= world_y < self.game.map.height:
-                    tile = self.game.map.tiles[int(world_y)][int(world_x)]
+        for z in range(self.game.map.depth):
+            for y in range(self.cam.rect.height+1):
+                world_y = self.cam.rect.tl[1] + y
+                for x in range(self.cam.rect.width+1):
+                    world_x = self.cam.rect.tl[0] + x 
+                    tile = self.game.map.grid.get(z, world_x, world_y)
+                    if world_x < 0 or world_y < 0:
+                        continue
                     if tile:
                         tile.pixie.step(self.game.dt)
                         asset_name = core.Pixie.ASSET_NAMES[tile.pixie.state]
@@ -83,7 +85,7 @@ class Engine:
                         #self.screen.blit(asset, pos)
                         self.tile_surface.blit(asset, pos)
 
-        pos = (-Engine.TILE_SIZE//2, -Engine.TILE_SIZE//2)
+        #pos = (-Engine.TILE_SIZE//2, -Engine.TILE_SIZE//2)
         pos = (
             (-self.cam.x*Engine.TILE_SIZE-Engine.TILE_SIZE//2)%Engine.TILE_SIZE - Engine.TILE_SIZE, 
             (-self.cam.y*Engine.TILE_SIZE-Engine.TILE_SIZE//2)%Engine.TILE_SIZE - Engine.TILE_SIZE)
@@ -150,7 +152,6 @@ class Engine:
         self.render_player()
         self.render_npcs()
         self.render_using()
-
 
     def render_menu_title(self, title):
         txt = self.font.render(title, 1, (255, 255, 255))
@@ -254,10 +255,10 @@ class Engine:
             size=0.7, center=(True, True))
 
     def clear(self):
-        self.screen.fill((0, 0, 0))
+        self.screen.fill((0, 0, 0, 0))
 
     def flip(self):
-        self.render_frame_rate()
         blit = pygame.transform.scale(self.screen, self.window_screen.get_size())
         self.window_screen.blit(blit, (0, 0))
+        self.render_frame_rate()
         pygame.display.flip()

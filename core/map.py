@@ -38,19 +38,28 @@ class Warp(PositionTrigger):
             self.game.player.move(self.game, self.destination[0], self.destination[1])
 
 class Map:
-    def __init__(self, game, name, tile_grid, npcs, warps=[]) -> None:
+    def __init__(self, game, name, grid, npcs, warps=[], lock_cam_in=True) -> None:
         self.game = game
         self.name = name
-        self.tiles = tile_grid
+        self.lock_cam_in = lock_cam_in
+        if lock_cam_in and (
+            (grid.width-1) < self.game.engine.BUFFER_SIZE[0]
+            or (grid.height-1) < self.game.engine.BUFFER_SIZE[1]
+        ):
+            raise ValueError("Map is too too small to fill view.")
+        self.grid = grid
         self.npcs = npcs
         self.warps = warps
 
     @property
+    def depth(self):
+        return self.grid.depth
+    @property
     def width(self) -> int:
-        return len(self.tiles[0])
+        return self.grid.width
     @property
     def height(self) -> int:
-        return len(self.tiles)
+        return self.grid.height
 
     def step():
         NotImplementedError()
