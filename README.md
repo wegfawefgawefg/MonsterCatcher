@@ -9,6 +9,7 @@ A very easily moddable game engine for a certain type of monster catching game
 - Items
 - Persistent Effects
 - Zone Loading
+- Portals (for some reason)
 
 # Todo
 - selection of tiles
@@ -35,3 +36,6 @@ A very easily moddable game engine for a certain type of monster catching game
 - keyboard bindings
 - save/load
 - options menu
+- make portals respect maps
+
+# try pathlib for asset loading

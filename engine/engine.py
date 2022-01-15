@@ -1,4 +1,5 @@
 import time
+import os
 import math
 from pprint import pprint
 from functools import cache
@@ -28,12 +29,12 @@ class Engine:
         self.assets = AssetManager()
 
         pygame.font.init()
-        if BUILTIN:=True:
+        if BUILTIN:=False:
             self.font = pygame.font.SysFont("monospace", Engine.TILE_SIZE)
         else:
             font = ["font", "pkmngb", "8bitoperator_jve"][-1]
             path = os.path.dirname(os.path.abspath(__file__))
-            full_path = os.path.join(path, "..","fonts",f"{font}.ttf")
+            full_path = os.path.join(path, "..","assets","fonts",f"{font}.ttf")
             self.font = pygame.font.Font(full_path, Engine.TILE_SIZE)
 
         self.cam_last_position = None
@@ -85,10 +86,9 @@ class Engine:
                         #self.screen.blit(asset, pos)
                         self.tile_surface.blit(asset, pos)
 
-        #pos = (-Engine.TILE_SIZE//2, -Engine.TILE_SIZE//2)
         pos = (
-            (-self.cam.x*Engine.TILE_SIZE-Engine.TILE_SIZE//2)%Engine.TILE_SIZE - Engine.TILE_SIZE, 
-            (-self.cam.y*Engine.TILE_SIZE-Engine.TILE_SIZE//2)%Engine.TILE_SIZE - Engine.TILE_SIZE)
+            (-self.cam.x*Engine.TILE_SIZE-Engine.TILE_SIZE/2)%Engine.TILE_SIZE - Engine.TILE_SIZE, 
+            (-self.cam.y*Engine.TILE_SIZE-Engine.TILE_SIZE/2)%Engine.TILE_SIZE - Engine.TILE_SIZE)
         self.screen.blit(self.tile_surface, pos)
 
     def render_using(self):
@@ -100,7 +100,8 @@ class Engine:
         if len(item_name) > MAX_USING_LENGTH:
             item_name = item_name[:MAX_USING_LENGTH] + "..."
 
-        color = (0, 255, 0) if self.game.using.can_use_on(self.game, self.game.player, self.game.scene.selected) else (255, 0, 0)
+        can_use = self.game.using.can_use_on(self.game, self.game.player, self.game.scene.selected) or self.game.using.can_use_on(self.game, self.game.player, self.game.scene.other_selected)
+        color = (0, 255, 0) if can_use else (255, 0, 0)
         self.screen.blit(self.font.render(f"{item_name}", 1, color), (0, (Engine.BUFFER_SIZE[1]-1)*Engine.TILE_SIZE))
         num_txt = str(self.game.using.quantity) if self.game.using.consumable else ""
         num_txt = self.font.render(num_txt, 1, (245, 217, 76))
@@ -112,7 +113,7 @@ class Engine:
         shadow = pygame.transform.rotate(shadow, angle)
         shadow = pygame.transform.scale(shadow, _scale)
         shadow.fill((0, 0, 0), special_flags=pygame.BLEND_RGBA_MULT)
-        shadow.set_alpha(128)
+        shadow.set_alpha(160)
         #offset the position by the angle so the shadow is centerd at the bottom of the asset
         offset_angle = -angle / 180 * math.pi - math.pi / 2
         offset_scale = 0.42
@@ -122,6 +123,17 @@ class Engine:
                 + -shadow.get_height() + scale[1]*1.13
         )
         self.screen.blit(shadow, pos)
+
+    def render_effects(self):
+        for effect in self.game.effects:
+            if not effect.pixie: # enforce effects have positions if have pixies
+                return
+            effect.pixie.step(self.game.dt)
+            asset_name = core.Pixie.ASSET_NAMES[effect.pixie.state]
+            asset = self.assets.effects[effect.name][asset_name]
+            pos = self.w2p(effect.pos)
+            pos = (pos[0] - self.TILE_SIZE//2, pos[1])
+            self.screen.blit(asset, pos)
 
     def render_character(self, character, pos):
         '''takes in character(assumed to have pixie) and pixel position x,y'''
@@ -148,7 +160,10 @@ class Engine:
 
     def render_overworld(self):
         self.screen.fill((255, 255, 255))
+        self.cam.set_pos(self.game.player.x, self.game.player.y)
+        self.cam.bound_by_map(self.game.map)
         self.render_map()
+        self.render_effects()
         self.render_player()
         self.render_npcs()
         self.render_using()
@@ -188,6 +203,13 @@ class Engine:
         blit = pygame.transform.scale(asset, _scale)
         self.screen.blit(blit, pos)
 
+    def render_full_screen_text(self):
+        text = self.game.scene.text[self.game.scene.text_index]
+        txt = self.font.render(text, 1, (255, 255, 255))
+        pos = self.center_surf(txt, height=True)
+        #pos = (pos[0], pos[1] + self.screen.get_height()/2)
+        self.screen.blit(txt, pos)
+
     def render_monster_stats(self):
         monster = self.game.scene.monster
         self.render_menu_title(str(monster))
@@ -217,7 +239,7 @@ class Engine:
                 self.screen.blit(self.font.render(txt, 1, (255, 255, 255)), (x, y))
 
         # draw monster
-        self.render_monster(monster, (0, 0),scale=(3, 3))
+        self.render_monster(monster, (0, 0),scale=(4, 4))
         self.render_using()
 
     def render_monster_moves(self):

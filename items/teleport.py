@@ -15,7 +15,7 @@ class Teleport(core.Item):
             self.announce_use(user, target)
 
     def can_use_on(self, game, user, target):
-        return user == game.player and user == game.player
+        return user == game.player and target == game.player
 
     def announce_use(self, user, target):
         print("holy shit i teleported")

@@ -4,7 +4,7 @@ from .map import Map, Warp
 from .monster import Monster
 from .item import Item
 from .pixie import Pixie, Animations, States
-from .move import Move
+from .move import Move, BattleTargets
 from .stats import Stats
 from .tile import Tile
 from .effect import Effect

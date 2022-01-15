@@ -6,13 +6,17 @@ scene will not call this if you dont want time to pass in that scene
 '''
 
 class Effect:
-    def __init__(self, game, name, target, duration, unique=False):
+    def __init__(self, game, name, target, duration, unique=False, pixie=None, pos=None):
         self.game = game
         self.name = name
         self.creation_time = self.game.time
         self.duration = duration
         self.unique = unique
         self.target = target
+        self.pixie = pixie
+        self.pos = pos
+        if self.pixie and not self.pos:
+            raise Exception("effect must have position if it has a sprite associated with it for rendering")
     
     @property
     def is_active(self):

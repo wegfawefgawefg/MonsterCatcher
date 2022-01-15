@@ -11,7 +11,7 @@ from pygame.locals import (
 from .scene import Scene
 
 class Party(Scene):
-    def __init__(self, game, parent_scene):
+    def __init__(self, game, parent_scene, choose_mode=False):
         commands = {
             K_q:self.exit,
             K_UP:self.select_up,

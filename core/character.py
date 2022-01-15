@@ -2,6 +2,8 @@ import random
 from enum import Enum, auto
 import math
 
+import core
+
 from .pixie import Pixie, Animations, States
 from .inventory import Inventory
 
@@ -23,6 +25,15 @@ class Character:
 
     def __repr__(self) -> str:
         return f"{self.name}"
+
+    def interact(self, game, interactor):
+        print(f"You interact with {self.name}")
+        return None
+
+    def chat(self, game, text):
+        if not isinstance(text, list):
+            text = [text]
+        game.scene = core.scenes.FullScreenText(game, parent_scene=game.scene, text=text)
 
     def step(self, dt):
         self.pixie.step(dt)
@@ -71,3 +82,14 @@ class Character:
     def wander(self, game):
         if random.random() < 0.01:
             random.choice([self.move_up, self.move_down, self.move_left, self.move_right])(game)
+
+    def looking_at(self):
+        ''' x, y positionn for what you are looking at'''
+        if self.facing == Directions.UP:
+            return self.x, self.y-1
+        elif self.facing == Directions.DOWN:
+            return self.x, self.y+1
+        elif self.facing == Directions.LEFT:
+            return self.x-1, self.y
+        elif self.facing == Directions.RIGHT:
+            return self.x+1, self.y

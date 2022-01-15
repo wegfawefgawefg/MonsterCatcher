@@ -1,4 +1,4 @@
-from core import Move
+from core import Move, BattleTargets
 
 class Shmove(Move):
     def __init__(self):
@@ -6,5 +6,5 @@ class Shmove(Move):
         self.pp = 10
         self.power = 0
         self.accuracy = 1
-        self.target = Move.Target.SELF
+        self.target = BattleTargets.SELF
         self.effect = []

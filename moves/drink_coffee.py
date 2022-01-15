@@ -1,10 +1,18 @@
-from core import Move
+from core import Move, BattleTargets
 
 class DrinkCoffee(Move):
     def __init__(self):
-        self.name = "drink coffee"
-        self.pp = 15
-        self.power = 1
-        self.accuracy = 1
-        self.target = "self"
-        self.effect = []
+        super().__init__(
+            name="drink coffee",
+            pp=15,
+            power=1,
+            accuracy=1,
+            target=BattleTargets.SELF
+        )
+
+    def use_in_battle(self, game, user, target):
+        user.hp += user.max_hp // 4
+        user.pp[self.name] -= 1
+    
+    def use(self, user, target):
+        pass

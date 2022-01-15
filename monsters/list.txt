@@ -1,0 +1,25 @@
+common animals and their monster name and evolution stages
+
+smiling fox: types: normal
+    Chucklepuff, Lycagrin, Urocyile
+angel wings deer: normal / flying
+    Serafawn, Cherubuck
+demon donkey, mule: normal / dark
+    Dungon, Mungon (big flat head no eyes)
+army rabbit: steel
+    Bunnet, Cottonel, Generabbit/Haremata (side evol)
+theif racoon:
+    
+grassy mouse:
+    Moss, Shruu
+cat
+stank dog
+    Peeyewwahwah, Musky, Rottenweiler
+squirrel
+hedehog
+porcupine
+otter
+possum
+skunk
+snake:
+    Dendraspis

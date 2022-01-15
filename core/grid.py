@@ -53,7 +53,14 @@ class Grid:
             print(z, x, y)
             raise ValueError("Tile out of bounds.")
 
+    def get_uppermost(self, x, y):
+        return self.get_top(x, y) or self.get_bottom(x, y)
+
     def get_top(self, x, y):
-        self.get(self.depth-1, x, y)
+        return self.get(self.depth-1, x, y)
     def set_top(self, x, y, tile):
-        self.set(self.depth-1, x, y, tile)
+        return self.set(self.depth-1, x, y, tile)
+
+    # standardize empty tiles: dict for layer 2
+    #def destroy_top(self, x, y):
+    #    self.set_top(x, y, None)

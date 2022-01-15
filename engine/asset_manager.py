@@ -9,7 +9,7 @@ class AssetManager:
             self.load_assets(asset_path)
 
         def load_assets(self, path):
-            asset_categories = ["tiles", "monsters", "items", "characters"]
+            asset_categories = ["tiles", "monsters", "items", "characters", "effects"]
             for category in asset_categories:
                 self.assets[category] = self.recurse_dir(os.path.join(path, category))
 
@@ -35,3 +35,7 @@ class AssetManager:
         @property
         def characters(self):
             return self.assets["characters"]
+        @property
+        def effects(self):
+            return self.assets["effects"]
+        

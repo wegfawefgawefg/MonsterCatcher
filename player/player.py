@@ -18,3 +18,5 @@ class Player(core.Character):
         for _ in range(10):
             self.inventory.add(items.Viagra())
             self.inventory.add(items.Vitamins())
+        self.inventory.add(items.PortalGun())
+        self.inventory.add(items.Axe())

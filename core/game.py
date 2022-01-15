@@ -19,6 +19,7 @@ from pygame.locals import (
 )
 
 from .scenes.main_menu import MainMenu
+from .scenes.full_screen_text import FullScreenText
 
 class Game:
     BUTTON_COOLDOWN = 100
@@ -54,6 +55,9 @@ class Game:
 
     def check_effects(self):
         self.effects = [effect for effect in self.effects if effect.step()]
+
+    def interact(self, interactor, target):
+        target.interact(self, interactor)
 
     def set_using(self, thing):
         self.using = thing

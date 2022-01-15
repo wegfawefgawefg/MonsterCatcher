@@ -10,7 +10,9 @@ from pygame.locals import (
     K_p,
     K_i,
     K_q,
-    K_t
+    K_t,
+    K_f,
+    K_e,
 )
 
 from .scene import Scene
@@ -21,7 +23,6 @@ class Overworld(Scene):
 
     def __init__(self, game, parent_scene):
         commands = {
-            K_q:self.exit,
             K_i:self.view_inventory,
             K_p:self.view_party,
             K_UP:self.move_up,
@@ -29,17 +30,37 @@ class Overworld(Scene):
             K_LEFT:self.move_left,
             K_RIGHT:self.move_right,
             K_t:self.use_useing_on_selected,
-
+            K_f:self.use_in_front,
+            K_e:self.interact,
         }
         super().__init__(game, commands, parent_scene)
+        self.extra_selected = None
 
     @property
     def selected(self):
         return self.game.player
 
+    @property
+    def other_selected(self):
+        return self.game.map.grid.get_top(*self.game.player.looking_at())
+
+    def interact(self):
+        npc_in_front = None
+        spot_in_front = self.game.player.looking_at()
+        for npc in self.game.npcs:
+            if npc.x == spot_in_front[0] and npc.y == spot_in_front[1]:
+                npc_in_front = npc
+                break
+        if npc_in_front:
+            self.game.interact(self.game.player, npc_in_front)
+
     def use_useing_on_selected(self):
         if self.selected:
             self.game.use_using(self.game.player, target=self.selected)
+
+    def use_in_front(self):
+        print("use in front")
+        self.game.use_using(self.game.player, target=self.other_selected)
 
     def view_inventory(self):
         from .inventory import Inventory
@@ -63,8 +84,7 @@ class Overworld(Scene):
             npc.wander(self.game)
         self.game.player.step(self.game.dt)
         self.game.map.check_warps()
-        self.game.engine.cam.set_pos(self.game.player.x, self.game.player.y)
-        self.game.engine.cam.bound_by_map(self.game.map)
+
         #smooth cam will happen later
         #self.game.engine.cam.set_pos(
         #    self.game.engine.cam.x + (self.game.player.x - self.game.engine.cam.x) / 4, 

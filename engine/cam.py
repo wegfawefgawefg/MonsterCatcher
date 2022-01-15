@@ -18,6 +18,7 @@ class Rect:
 
 class Cam:
     def __init__(self, width, height) -> None:
+        self.last_x, self.last_y = 0, 0
         self.x, self.y = 0, 0
         self.rect = Rect(center=(self.x, self.y), width=width, height=height)
 
@@ -38,8 +39,13 @@ class Cam:
             self.set_pos(self.x, map.height - self.rect.height//2-1)
 
     def set_pos(self, x: float, y: float):
+        if not self.last_x or not self.last_y:
+            self.last_x, self.last_y = x, y
+        # move an amount towards the target
+        #self.x += (x - self.x) * 0.1
+        #self.y += (y - self.y) * 0.1
         self.x, self.y = x, y
-        self.rect.set_center((x, y))
+        self.rect.set_center((self.x, self.y))
 
     def is_in_view(self, x, y):
         return self.rect.contains(x, y)        
