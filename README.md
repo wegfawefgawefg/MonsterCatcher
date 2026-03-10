@@ -13,6 +13,15 @@ uv sync
 uv run monstercatcher
 ```
 
+## Screenshots
+
+![Title screen](screenshots/title.png)
+![Overworld](screenshots/world.png)
+![Pack screen](screenshots/pack.png)
+![Party screen](screenshots/monsters.png)
+![Monster stats](screenshots/mon_status.png)
+![Move set](screenshots/move_set.png)
+
 # Game Features
 - Basic Movement
 - Overworld

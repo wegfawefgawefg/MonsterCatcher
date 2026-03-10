@@ -25,6 +25,7 @@ class Engine:
         self.screen = pygame.Surface(screen_dims)
         self.tile_surface = pygame.Surface(((Engine.BUFFER_SIZE[0]+1)*Engine.TILE_SIZE, (Engine.BUFFER_SIZE[1]+1)*Engine.TILE_SIZE))
         self.window_screen = pygame.display.set_mode([Engine.SCALE * dim for dim in self.screen.get_size()])
+        pygame.display.set_caption("MonsterCatcher")
 
         self.assets = AssetManager()
 
