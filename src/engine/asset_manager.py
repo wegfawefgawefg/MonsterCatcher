@@ -5,7 +5,7 @@ class AssetManager:
         def __init__(self):
             self.assets = {}
             path = os.path.dirname(os.path.abspath(__file__))
-            asset_path = os.path.join(path, "..","assets")
+            asset_path = os.path.join(path, "..", "..", "assets")
             self.load_assets(asset_path)
 
         def load_assets(self, path):

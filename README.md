@@ -1,6 +1,18 @@
 # Monster Catcher
 A very easily moddable game engine for a certain type of monster catching game
 
+## Archive Note
+Originally started on March 25, 2021, with the main early development happening through March-April 2021. There was another smaller burst in July 2021, and the last substantial push happened across January 1-14, 2022.
+
+This repo is archived and abandoned. A light cleanup pass happened on March 10, 2026 to make it run cleanly from `uv` again after moving the active code under `src/`.
+
+## Run
+
+```bash
+uv sync
+uv run monstercatcher
+```
+
 # Game Features
 - Basic Movement
 - Overworld

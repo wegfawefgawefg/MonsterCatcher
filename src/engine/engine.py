@@ -34,7 +34,7 @@ class Engine:
         else:
             font = ["font", "pkmngb", "8bitoperator_jve"][-1]
             path = os.path.dirname(os.path.abspath(__file__))
-            full_path = os.path.join(path, "..","assets","fonts",f"{font}.ttf")
+            full_path = os.path.join(path, "..", "..", "assets", "fonts", f"{font}.ttf")
             self.font = pygame.font.Font(full_path, Engine.TILE_SIZE)
 
         self.cam_last_position = None
